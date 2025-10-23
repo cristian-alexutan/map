@@ -20,7 +20,8 @@ public class DeclarationStatement implements Statement {
         IDictionary<String, Value> symTable = state.getSymTable();
         if (symTable.hasKey(varName)) throw new MochaException("Variable " + varName + " is already declared.");
         symTable.insert(varName, varType.defaultValue());
-        return null;
+        state.setSymTable(symTable);
+        return state;
     }
 
     @Override

@@ -28,11 +28,11 @@ public class IfStatement implements Statement {
             if (cond) stack.push(thenStatement);
             else stack.push(elseStatement);
             state.setExeStack(stack);
+            return state;
         }
         else {
             throw new MochaException("Condition is not a boolean.");
         }
-        return null;
     }
 
     @Override
