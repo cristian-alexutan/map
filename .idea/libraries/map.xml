@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="map">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/seminar1.zip!/" />
+      <root url="jar://$PROJECT_DIR$/seminar2.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
