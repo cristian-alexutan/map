@@ -5,6 +5,10 @@ import model.type.BoolType;
 public class BoolValue implements Value {
     private final boolean value;
 
+    public BoolValue() {
+        this.value = false;
+    }
+
     public BoolValue(boolean value) {
         this.value = value;
     }
