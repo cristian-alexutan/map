@@ -27,7 +27,6 @@ public class IfStatement implements Statement {
             boolean cond = ((BoolValue) result).getValue();
             if (cond) stack.push(thenStatement);
             else stack.push(elseStatement);
-            state.setExeStack(stack);
             return state;
         }
         else {

@@ -43,4 +43,5 @@ public class ArithmeticExpression implements Expression {
     public String toString() {
         return left.toString() + " " + operator + " " + right.toString();
     }
+
 }
