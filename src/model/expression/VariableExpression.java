@@ -2,7 +2,7 @@ package model.expression;
 
 import model.value.Value;
 import model.container.IDictionary;
-import exceptions.MochaException;
+import exceptions.MochaExpEvalException;
 
 public class VariableExpression implements Expression {
     String key;
@@ -12,7 +12,7 @@ public class VariableExpression implements Expression {
     }
 
     @Override
-    public Value eval(IDictionary<String, Value> symTable) throws MochaException {
+    public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException {
         return symTable.get(key);
     }
 

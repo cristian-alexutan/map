@@ -1,6 +1,6 @@
 package model.expression;
 
-import exceptions.MochaException;
+import exceptions.MochaExpEvalException;
 import model.value.Value;
 import model.container.IDictionary;
 import model.type.IntType;
@@ -18,13 +18,13 @@ public class ArithmeticExpression implements Expression {
     }
 
     @Override
-    public Value eval(IDictionary<String, Value> symTable) throws MochaException {
+    public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException {
         Value lValue = left.eval(symTable);
         Value rValue = right.eval(symTable);
         if(!lValue.getType().equals(new IntType()))
-            throw new MochaException("Left operand is not an integer.");
+            throw new MochaExpEvalException("Left operand is not an integer.");
         if(!rValue.getType().equals(new IntType()))
-            throw new MochaException("Right operand is not an integer.");
+            throw new MochaExpEvalException("Right operand is not an integer.");
         IntValue i1 = (IntValue) lValue;
         IntValue i2 = (IntValue) rValue;
         int n1 = i1.getValue();
@@ -33,7 +33,7 @@ public class ArithmeticExpression implements Expression {
         if(operator == '-') return new IntValue(n1 - n2);
         if(operator == '*') return new IntValue(n1 * n2);
         if(operator == '/') {
-            if(n2 == 0) throw new MochaException("Cannot divide by zero");
+            if(n2 == 0) throw new MochaExpEvalException("Cannot divide by zero");
             return new IntValue(n1 / n2);
         }
         return null;

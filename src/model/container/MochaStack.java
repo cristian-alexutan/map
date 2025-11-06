@@ -1,7 +1,7 @@
 package model.container;
 import java.util.Stack;
 
-import exceptions.MochaException;
+import exceptions.MochaStackException;
 
 public class MochaStack<T> implements IStack<T> {
     Stack<T> stack;
@@ -16,14 +16,14 @@ public class MochaStack<T> implements IStack<T> {
     }
 
     @Override
-    public T pop() throws MochaException {
-        if(stack.isEmpty()) throw new MochaException("Stack is empty");
+    public T pop() throws MochaStackException {
+        if(stack.isEmpty()) throw new MochaStackException("Stack is empty");
         return stack.pop();
     }
 
     @Override
-    public T top() throws MochaException {
-        if(stack.isEmpty()) throw new MochaException("Stack is empty");
+    public T top() throws MochaStackException {
+        if(stack.isEmpty()) throw new MochaStackException("Stack is empty");
         return stack.peek();
     }
 

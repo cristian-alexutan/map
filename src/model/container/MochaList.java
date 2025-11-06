@@ -1,7 +1,7 @@
 package model.container;
 
 import java.util.ArrayList;
-import exceptions.MochaException;
+import exceptions.MochaListException;
 
 public class MochaList<T> implements IList<T> {
     ArrayList<T> list;
@@ -16,8 +16,8 @@ public class MochaList<T> implements IList<T> {
     }
 
     @Override
-    public T popFront() throws MochaException {
-        if(list.isEmpty()) throw new MochaException("List is empty");
+    public T popFront() throws MochaListException {
+        if(list.isEmpty()) throw new MochaListException("List is empty");
         return list.removeFirst();
     }
 
