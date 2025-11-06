@@ -4,8 +4,8 @@ import model.programstate.ProgramState;
 import model.container.IStack;
 
 public class CompoundStatement implements Statement {
-    private Statement first;
-    private Statement second;
+    private final Statement first;
+    private final Statement second;
 
     public CompoundStatement(Statement first, Statement second) {
         this.first = first;
