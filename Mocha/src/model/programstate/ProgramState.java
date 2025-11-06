@@ -11,7 +11,7 @@ public class ProgramState {
     private IDictionary<String, Value> symTable;
     private IList<Value> out;
 
-    ProgramState(IStack<Statement> exeStack, IDictionary<String, Value> symTable, IList<Value> out) {
+    public ProgramState(IStack<Statement> exeStack, IDictionary<String, Value> symTable, IList<Value> out) {
         this.exeStack = exeStack;
         this.symTable = symTable;
         this.out = out;
