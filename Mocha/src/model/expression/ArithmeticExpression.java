@@ -1,5 +1,6 @@
 package model.expression;
 
+import exceptions.MochaDictionaryException;
 import exceptions.MochaExpEvalException;
 import model.value.Value;
 import model.container.IDictionary;
@@ -18,7 +19,7 @@ public class ArithmeticExpression implements Expression {
     }
 
     @Override
-    public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException {
+    public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException, MochaDictionaryException {
         Value lValue = left.eval(symTable);
         Value rValue = right.eval(symTable);
         if(!lValue.getType().equals(new IntType()))
