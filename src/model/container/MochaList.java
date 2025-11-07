@@ -22,8 +22,8 @@ public class MochaList<T> implements IList<T> {
     }
 
     @Override
-    public T front() {
-        if(list.isEmpty()) throw new RuntimeException("List is empty");
+    public T front() throws MochaListException {
+        if(list.isEmpty()) throw new MochaListException("List is empty");
         return list.getFirst();
     }
 

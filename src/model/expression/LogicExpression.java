@@ -1,5 +1,6 @@
 package model.expression;
 
+import exceptions.MochaDictionaryException;
 import exceptions.MochaExpEvalException;
 import model.type.BoolType;
 import model.value.BoolValue;
@@ -18,7 +19,7 @@ public class LogicExpression implements Expression {
     }
 
     @Override
-    public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException {
+    public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException, MochaDictionaryException {
         Value lValue = left.eval(symTable);
         Value rValue = right.eval(symTable);
         if(!lValue.getType().equals(new BoolType()))
