@@ -14,7 +14,7 @@ public class VariableExpression implements Expression {
 
     @Override
     public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException, MochaDictionaryException {
-        if(!symTable.hasKey(key)) {
+        if (!symTable.hasKey(key)) {
             throw new MochaExpEvalException("Variable not defined");
         }
         return symTable.get(key);

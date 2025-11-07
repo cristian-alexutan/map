@@ -1,8 +1,9 @@
 package model.value;
+
 import model.type.Type;
 import model.type.IntType;
 
-public class IntValue implements Value{
+public class IntValue implements Value {
     private final int value;
 
     public IntValue() {

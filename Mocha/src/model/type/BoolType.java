@@ -5,7 +5,7 @@ import model.value.Value;
 public class BoolType implements Type {
     @Override
     public boolean equals(Object another) {
-        if(another instanceof BoolType) return true;
+        if (another instanceof BoolType) return true;
         else return false;
     }
 

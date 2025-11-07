@@ -22,16 +22,18 @@ public class LogicExpression implements Expression {
     public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException, MochaDictionaryException {
         Value lValue = left.eval(symTable);
         Value rValue = right.eval(symTable);
-        if(!lValue.getType().equals(new BoolType()))
+        if (!lValue.getType().equals(new BoolType())) {
             throw new MochaExpEvalException("Left operand is not a boolean.");
-        if(!rValue.getType().equals(new BoolType()))
+        }
+        if (!rValue.getType().equals(new BoolType())) {
             throw new MochaExpEvalException("Right operand is not a boolean.");
+        }
         BoolValue b1 = (BoolValue) lValue;
         BoolValue b2 = (BoolValue) rValue;
         boolean n1 = b1.getValue();
         boolean n2 = b2.getValue();
-        if(operator.equals("and")) return new BoolValue(n1 && n2);
-        if(operator.equals("or")) return new BoolValue(n1 || n2);
+        if (operator.equals("and")) return new BoolValue(n1 && n2);
+        if (operator.equals("or")) return new BoolValue(n1 || n2);
         return null;
     }
 
