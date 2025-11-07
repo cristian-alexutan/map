@@ -27,21 +27,21 @@ public class Controller {
     public ProgramState oneStep() throws MochaException {
         ProgramState programState = this.repository.getProgramState();
         IStack<Statement> exeStack = repository.getProgramState().getExeStack();
-        if(exeStack.isEmpty()) throw new MochaExecutionException("ExeStack is empty");
+        if (exeStack.isEmpty()) throw new MochaExecutionException("ExeStack is empty");
         Statement currentStatement = exeStack.pop();
         return currentStatement.execute(programState);
     }
 
     public void allSteps() throws MochaException {
         ProgramState programState = this.repository.getProgramState();
-        if(displayFlag) {
+        if (displayFlag) {
             System.out.println(programState);
             System.out.println();
         }
         IStack<Statement> exeStack = programState.getExeStack();
-        while(!exeStack.isEmpty()) {
+        while (!exeStack.isEmpty()) {
             oneStep();
-            if(displayFlag) {
+            if (displayFlag) {
                 System.out.println(programState);
                 System.out.println();
             }

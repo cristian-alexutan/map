@@ -1,6 +1,7 @@
 package model.container;
 
 import java.util.HashMap;
+
 import exceptions.MochaDictionaryException;
 
 public class MochaDictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
@@ -17,19 +18,19 @@ public class MochaDictionary<TKey, TValue> implements IDictionary<TKey, TValue> 
 
     @Override
     public void remove(TKey key) throws MochaDictionaryException {
-        if(!map.containsKey(key)) throw new MochaDictionaryException("Key not found: " + key);
+        if (!map.containsKey(key)) throw new MochaDictionaryException("Key not found: " + key);
         map.remove(key);
     }
 
     @Override
     public void update(TKey key, TValue value) throws MochaDictionaryException {
-        if(!map.containsKey(key)) throw new MochaDictionaryException("Key not found: " + key);
+        if (!map.containsKey(key)) throw new MochaDictionaryException("Key not found: " + key);
         map.put(key, value);
     }
 
     @Override
     public TValue get(TKey key) throws MochaDictionaryException {
-        if(!map.containsKey(key)) throw new MochaDictionaryException("Key not found: " + key);
+        if (!map.containsKey(key)) throw new MochaDictionaryException("Key not found: " + key);
         return map.get(key);
     }
 

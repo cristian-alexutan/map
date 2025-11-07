@@ -1,4 +1,5 @@
 package model.value;
+
 import model.type.Type;
 import model.type.BoolType;
 

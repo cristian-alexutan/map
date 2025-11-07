@@ -23,7 +23,8 @@ public class AssignStatement implements Statement {
         Value val = expression.eval(state.getSymTable());
         Type typeId = (state.getSymTable().get(key)).getType();
         if (val.getType().equals(typeId)) state.getSymTable().insert(key, val);
-        else throw new MochaException("Declared type of variable " + key + " and type of the assigned expression do not match.");
+        else
+            throw new MochaException("Declared type of variable " + key + " and type of the assigned expression do not match.");
         IDictionary<String, Value> symTable = state.getSymTable();
         symTable.update(key, val);
         return state;
