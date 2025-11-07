@@ -43,6 +43,6 @@ public class ProgramState {
 
     @Override
     public String toString() {
-        return "ExeStack:\n" + exeStack.toString() + "\nSymTable:\n" + symTable.toString() + "\nOut:\n" + out.toString();
+        return "ExeStack:\n" + exeStack.toString() + "SymTable:\n" + symTable.toString() + "\nOut:\n" + out.toString();
     }
 }

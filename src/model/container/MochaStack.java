@@ -34,6 +34,9 @@ public class MochaStack<T> implements IStack<T> {
 
     @Override
     public String toString() {
-        return stack.toString();
+        StringBuilder ans = new StringBuilder();
+        for(T val : stack)
+            ans.insert(0, val.toString() + "\n");
+        return ans.toString();
     }
 }
