@@ -23,16 +23,16 @@ public class View {
                         new AssignStatement("v", new ValueExpression(new IntValue(2))),
                         new PrintStatement(new VariableExpression("v"))));
 
-        ex2 = new CompoundStatement( new DeclarationStatement("a",new IntType()), new CompoundStatement(new DeclarationStatement("b",new IntType()),
-                        new CompoundStatement(new AssignStatement("a", new ArithmeticExpression(new ValueExpression(new IntValue(2)),new
-                                ArithmeticExpression(new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(5)), '*'), '+')),
-                                new CompoundStatement(new AssignStatement("b",new ArithmeticExpression(new VariableExpression("a"), new ValueExpression(new
-                                        IntValue(1)), '+')), new PrintStatement(new VariableExpression("b"))))));
+        ex2 = new CompoundStatement(new DeclarationStatement("a", new IntType()), new CompoundStatement(new DeclarationStatement("b", new IntType()),
+                new CompoundStatement(new AssignStatement("a", new ArithmeticExpression(new ValueExpression(new IntValue(2)), new
+                        ArithmeticExpression(new ValueExpression(new IntValue(3)), new ValueExpression(new IntValue(5)), '*'), '+')),
+                        new CompoundStatement(new AssignStatement("b", new ArithmeticExpression(new VariableExpression("a"), new ValueExpression(new
+                                IntValue(1)), '+')), new PrintStatement(new VariableExpression("b"))))));
 
-        ex3 = new CompoundStatement(new DeclarationStatement("a",new BoolType()),
+        ex3 = new CompoundStatement(new DeclarationStatement("a", new BoolType()),
                 new CompoundStatement(new DeclarationStatement("v", new IntType()),
                         new CompoundStatement(new AssignStatement("a", new ValueExpression(new BoolValue(true))),
-                                new CompoundStatement(new IfStatement(new VariableExpression("a"),new AssignStatement("v",new ValueExpression(new
+                                new CompoundStatement(new IfStatement(new VariableExpression("a"), new AssignStatement("v", new ValueExpression(new
                                         IntValue(2))), new AssignStatement("v", new ValueExpression(new IntValue(3)))), new PrintStatement(new
                                         VariableExpression("v"))))));
     }
@@ -46,12 +46,12 @@ public class View {
     }
 
     public void run() {
-        while(true) {
+        while (true) {
             printMenu();
             System.out.print(" >>> ");
             Scanner scanner = new Scanner(System.in);
             String choice = scanner.nextLine();
-            if(choice.equals("0")) {
+            if (choice.equals("0")) {
                 break;
             }
 
@@ -59,7 +59,7 @@ public class View {
             IDictionary<String, Value> symTable = new MochaDictionary<>();
             IList<Value> out = new MochaList<>();
             ProgramState programState = new ProgramState(exeStack, symTable, out);
-            IRepository repository = new Repository(programState);
+            IRepository repository = new Repository(programState, "log.txt");
             controller = new Controller(repository, true);
 
             try {
@@ -80,8 +80,7 @@ public class View {
                         System.out.println("Invalid choice!");
                         continue;
                 }
-            }
-            catch (Exception e) {
+            } catch (Exception e) {
                 System.out.println("Error: " + e.getMessage());
                 continue;
             }

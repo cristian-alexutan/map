@@ -1,8 +1,9 @@
 package model.value;
+
 import model.type.Type;
 import model.type.IntType;
 
-public class IntValue implements Value{
+public class IntValue implements Value {
     private final int value;
 
     public IntValue() {
@@ -15,6 +16,15 @@ public class IntValue implements Value{
 
     public int getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof IntValue) {
+            return this.value == ((IntValue) another).getValue();
+        } else {
+            return false;
+        }
     }
 
     @Override

@@ -1,6 +1,7 @@
 package model.container;
 
 import java.util.ArrayList;
+
 import exceptions.MochaListException;
 
 public class MochaList<T> implements IList<T> {
@@ -17,13 +18,13 @@ public class MochaList<T> implements IList<T> {
 
     @Override
     public T popFront() throws MochaListException {
-        if(list.isEmpty()) throw new MochaListException("List is empty");
+        if (list.isEmpty()) throw new MochaListException("List is empty");
         return list.removeFirst();
     }
 
     @Override
     public T front() throws MochaListException {
-        if(list.isEmpty()) throw new MochaListException("List is empty");
+        if (list.isEmpty()) throw new MochaListException("List is empty");
         return list.getFirst();
     }
 
@@ -34,6 +35,9 @@ public class MochaList<T> implements IList<T> {
 
     @Override
     public String toString() {
-        return list.toString();
+        StringBuilder ans = new StringBuilder();
+        for (T val : list)
+            ans.append(val.toString()).append("\n");
+        return ans.toString();
     }
 }

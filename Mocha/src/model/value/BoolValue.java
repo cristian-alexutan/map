@@ -1,4 +1,5 @@
 package model.value;
+
 import model.type.Type;
 import model.type.BoolType;
 
@@ -15,6 +16,15 @@ public class BoolValue implements Value {
 
     public boolean getValue() {
         return value;
+    }
+
+    @Override
+    public boolean equals(Object another) {
+        if (another instanceof BoolValue) {
+            return this.value == ((BoolValue) another).getValue();
+        } else {
+            return false;
+        }
     }
 
     @Override
