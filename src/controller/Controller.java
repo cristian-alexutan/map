@@ -34,7 +34,7 @@ public class Controller {
         return currentStatement.execute(programState);
     }
 
-    public void allSteps() throws MochaException, IOException {
+    public void allSteps() throws MochaException {
         ProgramState programState = this.repository.getProgramState();
         if (displayFlag) {
             repository.logPrgStateExec();

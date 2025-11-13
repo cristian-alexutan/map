@@ -1,5 +1,7 @@
 package repository;
 
+import exceptions.MochaException;
+import exceptions.MochaFileException;
 import model.programstate.ProgramState;
 
 import java.io.BufferedWriter;
@@ -22,9 +24,13 @@ public class Repository implements IRepository {
     }
 
     @Override
-    public void logPrgStateExec() throws IOException {
-        PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
-        logFile.println(programState.toString());
-        logFile.close();
+    public void logPrgStateExec() throws MochaException {
+        try {
+            PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
+            logFile.println(programState.toString());
+            logFile.close();
+        } catch (IOException e) {
+            throw new MochaFileException("Could not log program state to file: " + e.getMessage());
+        }
     }
 }
