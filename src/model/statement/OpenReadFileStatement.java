@@ -43,4 +43,9 @@ public class OpenReadFileStatement implements Statement{
         }
         return state;
     }
+
+    @Override
+    public String toString() {
+        return "openReadFile(" + expression.toString() + ")";
+    }
 }

@@ -7,6 +7,8 @@ import model.container.IStack;
 import model.statement.Statement;
 import exceptions.MochaExecutionException;
 
+import java.io.IOException;
+
 public class Controller {
     private IRepository repository;
     private boolean displayFlag;
@@ -32,18 +34,16 @@ public class Controller {
         return currentStatement.execute(programState);
     }
 
-    public void allSteps() throws MochaException {
+    public void allSteps() throws MochaException, IOException {
         ProgramState programState = this.repository.getProgramState();
         if (displayFlag) {
-            System.out.println(programState);
-            System.out.println();
+            repository.logPrgStateExec();
         }
         IStack<Statement> exeStack = programState.getExeStack();
         while (!exeStack.isEmpty()) {
             oneStep();
             if (displayFlag) {
-                System.out.println(programState);
-                System.out.println();
+                repository.logPrgStateExec();
             }
         }
     }

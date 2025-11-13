@@ -13,10 +13,11 @@ public class ProgramState {
     private IList<Value> out;
     private IDictionary<String, BufferedReader> fileTable;
 
-    public ProgramState(IStack<Statement> exeStack, IDictionary<String, Value> symTable, IList<Value> out) {
+    public ProgramState(IStack<Statement> exeStack, IDictionary<String, Value> symTable, IList<Value> out, IDictionary<String, BufferedReader> fileTable) {
         this.exeStack = exeStack;
         this.symTable = symTable;
         this.out = out;
+        this.fileTable = fileTable;
     }
 
     public IStack<Statement> getExeStack() {

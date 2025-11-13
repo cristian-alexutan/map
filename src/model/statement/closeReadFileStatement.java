@@ -2,22 +2,30 @@ package model.statement;
 
 import exceptions.MochaDictionaryException;
 import exceptions.MochaException;
+import exceptions.MochaExpEvalException;
+import exceptions.MochaFileException;
 import model.value.StringValue;
 import model.type.StringType;
 import model.programstate.ProgramState;
 import model.container.IDictionary;
 import java.io.BufferedReader;
+import model.expression.Expression;
+import model.value.Value;
 
 public class closeReadFileStatement implements Statement {
-    private final String exp;
+    private final Expression exp;
 
-    public closeReadFileStatement(String exp) {
+    public closeReadFileStatement(Expression exp) {
         this.exp = exp;
     }
 
     @Override
-    public ProgramState execute(ProgramState state) {
-        StringValue filePath = new StringValue(exp);
+    public ProgramState execute(ProgramState state) throws MochaException {
+        Value value = exp.eval(state.getSymTable());
+        if (!value.getType().equals(new StringType())) {
+            throw new MochaExpEvalException("File path expression does not evaluate to a string.");
+        }
+        StringValue filePath = (StringValue) value;
         IDictionary<String, BufferedReader> fileTable = state.getFileTable();
         if (fileTable.hasKey(filePath.getValue())) {
             try {
@@ -25,13 +33,18 @@ public class closeReadFileStatement implements Statement {
                 reader.close();
                 fileTable.remove(filePath.getValue());
             } catch (java.io.IOException e) {
-                System.err.println("Error closing file: " + e.getMessage());
+                throw new MochaFileException("Error closing file: " + e.getMessage());
             } catch (MochaException e) {
                 throw new RuntimeException(e);
             }
         } else {
-            System.err.println("File " + filePath.getValue() + " is not opened.");
+            throw new MochaFileException("File " + filePath.getValue() + " is not opened.");
         }
         return state;
+    }
+
+    @Override
+    public String toString() {
+        return "closeReadFile(" + exp + ")";
     }
 }
