@@ -1,6 +1,5 @@
 package model.statement;
 
-import exceptions.MochaDictionaryException;
 import exceptions.MochaException;
 import exceptions.MochaExpEvalException;
 import exceptions.MochaFileException;
@@ -14,10 +13,10 @@ import java.io.BufferedReader;
 import model.expression.Expression;
 import model.value.Value;
 
-public class closeReadFileStatement implements Statement {
+public class CloseReadFileStatement implements Statement {
     private final Expression exp;
 
-    public closeReadFileStatement(Expression exp) {
+    public CloseReadFileStatement(Expression exp) {
         this.exp = exp;
     }
 
