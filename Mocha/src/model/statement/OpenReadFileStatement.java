@@ -10,9 +10,10 @@ import model.type.StringType;
 import model.value.Value;
 import model.value.StringValue;
 import model.container.IDictionary;
+
 import java.io.BufferedReader;
 
-public class OpenReadFileStatement implements Statement{
+public class OpenReadFileStatement implements Statement {
     private final Expression expression;
 
     public OpenReadFileStatement(Expression expression) {
@@ -28,8 +29,7 @@ public class OpenReadFileStatement implements Statement{
             IDictionary<String, BufferedReader> fileTable = state.getFileTable();
             if (fileTable.hasKey(fileName)) {
                 throw new MochaFileException("File " + fileName + " is already opened.");
-            }
-            else {
+            } else {
                 try {
                     java.io.BufferedReader bufferedReader = new java.io.BufferedReader(new java.io.FileReader(fileName));
                     fileTable.insert(fileName, bufferedReader);
@@ -37,8 +37,7 @@ public class OpenReadFileStatement implements Statement{
                     throw new MochaFileException("File " + fileName + " not found.");
                 }
             }
-        }
-        else {
+        } else {
             throw new MochaExpEvalException("File path expression does not evaluate to a string.");
         }
         return state;

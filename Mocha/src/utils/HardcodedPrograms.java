@@ -7,6 +7,7 @@ import model.type.IntType;
 import model.value.BoolValue;
 import model.value.IntValue;
 import model.value.StringValue;
+
 import java.util.Vector;
 
 public class HardcodedPrograms {

@@ -12,7 +12,7 @@ import model.type.StringType;
 
 import java.io.BufferedReader;
 
-public class ReadFileStatement implements Statement{
+public class ReadFileStatement implements Statement {
     private final Expression exp;
     private final String varName;
 

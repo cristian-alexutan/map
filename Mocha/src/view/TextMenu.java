@@ -10,12 +10,15 @@ import java.util.Scanner;
 
 public class TextMenu {
     private Map<String, Command> commands;
+
     public TextMenu() {
         this.commands = new HashMap<>();
     }
+
     public void addCommand(Command command) {
         commands.put(command.getKey(), command);
     }
+
     private void printMenu() {
         for (Command command : commands.values()) {
             String line = String.format("%4s: %s", command.getKey(), command.getDescription());
@@ -23,14 +26,15 @@ public class TextMenu {
         }
         System.out.println("--------------------------");
     }
+
     public void show() {
         Scanner scanner = new Scanner(System.in);
-        while(true) {
+        while (true) {
             printMenu();
             System.out.print(" >>> ");
             String key = scanner.nextLine();
             Command command = commands.get(key);
-            if(command == null) {
+            if (command == null) {
                 System.out.println("Invalid command");
             } else {
                 command.execute();
