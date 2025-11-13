@@ -16,7 +16,7 @@ public class RunExampleCommand extends Command{
         try {
             ctr.allSteps();
         }
-        catch (MochaException | IOException e) {
+        catch (MochaException e) {
             System.err.println(e.getMessage());
         }
     }
