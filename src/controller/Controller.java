@@ -7,8 +7,6 @@ import model.container.IStack;
 import model.statement.Statement;
 import exceptions.MochaExecutionException;
 
-import java.io.IOException;
-
 public class Controller {
     private IRepository repository;
     private boolean displayFlag;
@@ -29,23 +27,23 @@ public class Controller {
     public ProgramState oneStep() throws MochaException {
         ProgramState programState = this.repository.getProgramState();
         IStack<Statement> exeStack = repository.getProgramState().getExeStack();
-        if (exeStack.isEmpty()) {
-            throw new MochaExecutionException("ExeStack is empty");
-        }
+        if (exeStack.isEmpty()) throw new MochaExecutionException("ExeStack is empty");
         Statement currentStatement = exeStack.pop();
         return currentStatement.execute(programState);
     }
 
-    public void allSteps() throws MochaException, IOException {
+    public void allSteps() throws MochaException {
         ProgramState programState = this.repository.getProgramState();
         if (displayFlag) {
-            repository.logPrgStateExec();
+            System.out.println(programState);
+            System.out.println();
         }
         IStack<Statement> exeStack = programState.getExeStack();
         while (!exeStack.isEmpty()) {
             oneStep();
             if (displayFlag) {
-                repository.logPrgStateExec();
+                System.out.println(programState);
+                System.out.println();
             }
         }
     }
