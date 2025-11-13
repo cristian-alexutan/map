@@ -30,12 +30,20 @@ public class ArithmeticExpression implements Expression {
         IntValue i2 = (IntValue) rValue;
         int n1 = i1.getValue();
         int n2 = i2.getValue();
-        if (operator == '+') return new IntValue(n1 + n2);
-        if (operator == '-') return new IntValue(n1 - n2);
-        if (operator == '*') return new IntValue(n1 * n2);
-        if (operator == '/') {
-            if (n2 == 0) throw new MochaExpEvalException("Cannot divide by zero");
-            return new IntValue(n1 / n2);
+        switch (operator) {
+            case '+': {
+                return new IntValue(n1 + n2);
+            }
+            case '-': {
+                return new IntValue(n1 - n2);
+            }
+            case '*': {
+                return new IntValue(n1 * n2);
+            }
+            case '/': {
+                if (n2 == 0) throw new MochaExpEvalException("Cannot divide by zero");
+                return new IntValue(n1 / n2);
+            }
         }
         return null;
     }
