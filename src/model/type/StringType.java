@@ -1,21 +1,22 @@
 package model.type;
 
 import model.value.Value;
+import model.value.StringValue;
 
-public class BoolType implements Type {
+public class StringType implements Type {
     @Override
     public boolean equals(Object another) {
-        if (another instanceof BoolType) return true;
+        if (another instanceof StringType) return true;
         else return false;
     }
 
     @Override
     public String toString() {
-        return "bool";
+        return "string";
     }
 
     @Override
     public Value defaultValue() {
-        return new model.value.BoolValue(false);
+        return new StringValue("");
     }
 }

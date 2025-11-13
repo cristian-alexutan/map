@@ -3,7 +3,7 @@ package model.type;
 public class IntType implements Type {
     @Override
     public boolean equals(Object another) {
-        if(another instanceof IntType) return true;
+        if (another instanceof IntType) return true;
         else return false;
     }
 

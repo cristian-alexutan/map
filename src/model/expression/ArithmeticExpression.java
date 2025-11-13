@@ -22,19 +22,19 @@ public class ArithmeticExpression implements Expression {
     public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException, MochaDictionaryException {
         Value lValue = left.eval(symTable);
         Value rValue = right.eval(symTable);
-        if(!lValue.getType().equals(new IntType()))
+        if (!lValue.getType().equals(new IntType()))
             throw new MochaExpEvalException("Left operand is not an integer.");
-        if(!rValue.getType().equals(new IntType()))
+        if (!rValue.getType().equals(new IntType()))
             throw new MochaExpEvalException("Right operand is not an integer.");
         IntValue i1 = (IntValue) lValue;
         IntValue i2 = (IntValue) rValue;
         int n1 = i1.getValue();
         int n2 = i2.getValue();
-        if(operator == '+') return new IntValue(n1 + n2);
-        if(operator == '-') return new IntValue(n1 - n2);
-        if(operator == '*') return new IntValue(n1 * n2);
-        if(operator == '/') {
-            if(n2 == 0) throw new MochaExpEvalException("Cannot divide by zero");
+        if (operator == '+') return new IntValue(n1 + n2);
+        if (operator == '-') return new IntValue(n1 - n2);
+        if (operator == '*') return new IntValue(n1 * n2);
+        if (operator == '/') {
+            if (n2 == 0) throw new MochaExpEvalException("Cannot divide by zero");
             return new IntValue(n1 / n2);
         }
         return null;

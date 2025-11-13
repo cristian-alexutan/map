@@ -5,11 +5,13 @@ import model.container.IList;
 import model.container.IDictionary;
 import model.statement.Statement;
 import model.value.Value;
+import java.io.BufferedReader;
 
 public class ProgramState {
     private IStack<Statement> exeStack;
     private IDictionary<String, Value> symTable;
     private IList<Value> out;
+    private IDictionary<String, BufferedReader> fileTable;
 
     public ProgramState(IStack<Statement> exeStack, IDictionary<String, Value> symTable, IList<Value> out) {
         this.exeStack = exeStack;
@@ -41,8 +43,16 @@ public class ProgramState {
         this.out = out;
     }
 
+    public IDictionary<String, BufferedReader> getFileTable() {
+        return fileTable;
+    }
+
+    public void setFileTable(IDictionary<String, BufferedReader> fileTable) {
+        this.fileTable = fileTable;
+    }
+
     @Override
     public String toString() {
-        return "ExeStack:\n" + exeStack.toString() + "SymTable:\n" + symTable.toString() + "\nOut:\n" + out.toString();
+        return "ExeStack:\n" + exeStack.toString() + "SymTable:\n" + symTable.toString() + "Out:\n" + out.toString() + "FileTable:\n" + fileTable.keyString();
     }
 }

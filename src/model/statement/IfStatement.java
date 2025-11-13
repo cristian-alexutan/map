@@ -23,13 +23,12 @@ public class IfStatement implements Statement {
     public ProgramState execute(ProgramState state) throws MochaException {
         IStack<Statement> stack = state.getExeStack();
         Value result = condition.eval(state.getSymTable());
-        if(result.getType().equals(new BoolType())) {
+        if (result.getType().equals(new BoolType())) {
             boolean cond = ((BoolValue) result).getValue();
             if (cond) stack.push(thenStatement);
             else stack.push(elseStatement);
             return state;
-        }
-        else {
+        } else {
             throw new MochaException("Condition is not a boolean.");
         }
     }
