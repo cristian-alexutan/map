@@ -10,9 +10,9 @@ import model.value.Value;
 public class RelationalExpression implements Expression {
     private final Expression left;
     private final Expression right;
-    private final String operator;
+    private final RelationalOperator operator;
 
-    public RelationalExpression(Expression left, Expression right, String operator) {
+    public RelationalExpression(Expression left, Expression right, RelationalOperator operator) {
         this.left = left;
         this.right = right;
         this.operator = operator;
@@ -32,22 +32,22 @@ public class RelationalExpression implements Expression {
         boolean result;
 
         switch (operator) {
-            case "<":
+            case LESS:
                 result = leftInt < rightInt;
                 break;
-            case "<=":
+            case LESS_EQUAL:
                 result = leftInt <= rightInt;
                 break;
-            case "==":
+            case EQUAL:
                 result = leftInt == rightInt;
                 break;
-            case "!=":
+            case NOT_EQUAL:
                 result = leftInt != rightInt;
                 break;
-            case ">":
+            case GREATER:
                 result = leftInt > rightInt;
                 break;
-            case ">=":
+            case GREATER_EQUAL:
                 result = leftInt >= rightInt;
                 break;
             default:
