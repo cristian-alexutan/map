@@ -17,4 +17,6 @@ public interface IDictionary<TKey, TValue> {
     String toString();
 
     String keyString();
+
+    IDictionary<TKey, TValue> deepCopy();
 }

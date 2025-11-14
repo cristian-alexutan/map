@@ -1,11 +1,11 @@
 package model.statement;
 
 import exceptions.MochaException;
+import model.container.IDictionary;
 import model.expression.Expression;
 import model.programstate.ProgramState;
-import model.value.Value;
 import model.type.Type;
-import model.container.IDictionary;
+import model.value.Value;
 
 public class AssignStatement implements Statement {
     String key;

@@ -12,4 +12,6 @@ public interface IStack<T> {
     boolean isEmpty();
 
     String toString();
+
+    IStack<T> deepCopy();
 }

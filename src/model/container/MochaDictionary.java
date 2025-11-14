@@ -1,8 +1,8 @@
 package model.container;
 
-import java.util.HashMap;
-
 import exceptions.MochaDictionaryException;
+
+import java.util.HashMap;
 
 public class MochaDictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
     HashMap<TKey, TValue> map;
@@ -53,5 +53,14 @@ public class MochaDictionary<TKey, TValue> implements IDictionary<TKey, TValue> 
         for (TKey key : map.keySet())
             ans.append(key.toString()).append("\n");
         return ans.toString();
+    }
+
+    @Override
+    public MochaDictionary<TKey, TValue> deepCopy() {
+        MochaDictionary<TKey, TValue> newDict = new MochaDictionary<>();
+        for (TKey key : map.keySet()) {
+            newDict.insert(key, map.get(key));
+        }
+        return newDict;
     }
 }

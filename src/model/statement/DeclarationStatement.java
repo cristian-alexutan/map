@@ -1,9 +1,9 @@
 package model.statement;
 
 import exceptions.MochaException;
+import model.container.IDictionary;
 import model.programstate.ProgramState;
 import model.type.Type;
-import model.container.IDictionary;
 import model.value.Value;
 
 public class DeclarationStatement implements Statement {

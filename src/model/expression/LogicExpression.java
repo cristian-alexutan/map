@@ -2,10 +2,10 @@ package model.expression;
 
 import exceptions.MochaDictionaryException;
 import exceptions.MochaExpEvalException;
+import model.container.IDictionary;
 import model.type.BoolType;
 import model.value.BoolValue;
 import model.value.Value;
-import model.container.IDictionary;
 
 public class LogicExpression implements Expression {
     Expression left;

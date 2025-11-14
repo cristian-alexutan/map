@@ -1,9 +1,5 @@
 package model.command;
 
-import exceptions.MochaException;
-
-import java.io.IOException;
-
 public abstract class Command {
     private String key, description;
 

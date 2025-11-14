@@ -1,9 +1,9 @@
 package model.expression;
 
 import exceptions.MochaDictionaryException;
-import model.value.Value;
-import model.container.IDictionary;
 import exceptions.MochaExpEvalException;
+import model.container.IDictionary;
+import model.value.Value;
 
 public class VariableExpression implements Expression {
     String key;

@@ -1,16 +1,14 @@
 package controller;
 
 import exceptions.MochaException;
-import repository.IRepository;
-import model.programstate.ProgramState;
-import model.container.IStack;
-import model.statement.Statement;
 import exceptions.MochaExecutionException;
-
-import java.io.IOException;
+import model.container.IStack;
+import model.programstate.ProgramState;
+import model.statement.Statement;
+import repository.IRepository;
 
 public class Controller {
-    private IRepository repository;
+    private final IRepository repository;
     private boolean displayFlag;
 
     public Controller(IRepository repository, boolean displayFlag) {

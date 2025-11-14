@@ -1,15 +1,13 @@
 package view;
 
-import exceptions.MochaException;
 import model.command.Command;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
 public class TextMenu {
-    private Map<String, Command> commands;
+    private final Map<String, Command> commands;
 
     public TextMenu() {
         this.commands = new HashMap<>();

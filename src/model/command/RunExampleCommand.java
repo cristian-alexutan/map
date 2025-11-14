@@ -3,8 +3,6 @@ package model.command;
 import controller.Controller;
 import exceptions.MochaException;
 
-import java.io.IOException;
-
 public class RunExampleCommand extends Command {
     private Controller ctr;
 

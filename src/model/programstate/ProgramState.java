@@ -1,8 +1,8 @@
 package model.programstate;
 
-import model.container.IStack;
-import model.container.IList;
 import model.container.IDictionary;
+import model.container.IList;
+import model.container.IStack;
 import model.statement.Statement;
 import model.value.Value;
 
@@ -56,5 +56,9 @@ public class ProgramState {
     @Override
     public String toString() {
         return "ExeStack:\n" + exeStack.toString() + "SymTable:\n" + symTable.toString() + "Out:\n" + out.toString() + "FileTable:\n" + fileTable.keyString();
+    }
+
+    public ProgramState deepCopy() {
+        return new ProgramState(exeStack.deepCopy(), symTable.deepCopy(), out.deepCopy(), fileTable.deepCopy());
     }
 }
