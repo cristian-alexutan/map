@@ -1,12 +1,12 @@
 package model.statement;
 
 import exceptions.MochaException;
+import model.container.IStack;
 import model.expression.Expression;
 import model.programstate.ProgramState;
-import model.value.Value;
-import model.value.BoolValue;
 import model.type.BoolType;
-import model.container.IStack;
+import model.value.BoolValue;
+import model.value.Value;
 
 public class IfStatement implements Statement {
     Expression condition;

@@ -1,7 +1,7 @@
 package model.value;
 
-import model.type.Type;
 import model.type.BoolType;
+import model.type.Type;
 
 public class BoolValue implements Value {
     private final boolean value;

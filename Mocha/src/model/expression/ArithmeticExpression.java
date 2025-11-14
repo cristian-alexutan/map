@@ -2,10 +2,10 @@ package model.expression;
 
 import exceptions.MochaDictionaryException;
 import exceptions.MochaExpEvalException;
-import model.value.Value;
 import model.container.IDictionary;
 import model.type.IntType;
 import model.value.IntValue;
+import model.value.Value;
 
 public class ArithmeticExpression implements Expression {
     Expression left;

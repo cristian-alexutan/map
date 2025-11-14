@@ -1,7 +1,7 @@
 package model.statement;
 
-import model.programstate.ProgramState;
 import model.container.IStack;
+import model.programstate.ProgramState;
 
 public class CompoundStatement implements Statement {
     private final Statement first;

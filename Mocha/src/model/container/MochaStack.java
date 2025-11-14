@@ -1,8 +1,8 @@
 package model.container;
 
-import java.util.Stack;
-
 import exceptions.MochaStackException;
+
+import java.util.Stack;
 
 public class MochaStack<T> implements IStack<T> {
     Stack<T> stack;
@@ -39,5 +39,18 @@ public class MochaStack<T> implements IStack<T> {
         for (T val : stack)
             ans.insert(0, val.toString() + "\n");
         return ans.toString();
+    }
+
+    @Override
+    public IStack<T> deepCopy() {
+        MochaStack<T> newStack = new MochaStack<>();
+        Stack<T> tempStack = new Stack<>();
+        for (T val : stack) {
+            tempStack.push(val);
+        }
+        while (!tempStack.isEmpty()) {
+            newStack.push(tempStack.pop());
+        }
+        return newStack;
     }
 }

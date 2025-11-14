@@ -1,8 +1,8 @@
 package model.container;
 
-import java.util.ArrayList;
-
 import exceptions.MochaListException;
+
+import java.util.ArrayList;
 
 public class MochaList<T> implements IList<T> {
     ArrayList<T> list;
@@ -39,5 +39,14 @@ public class MochaList<T> implements IList<T> {
         for (T val : list)
             ans.append(val.toString()).append("\n");
         return ans.toString();
+    }
+
+    @Override
+    public IList<T> deepCopy() {
+        MochaList<T> newList = new MochaList<>();
+        for (T val : list) {
+            newList.add(val);
+        }
+        return newList;
     }
 }

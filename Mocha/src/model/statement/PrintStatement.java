@@ -1,10 +1,10 @@
 package model.statement;
 
 import exceptions.MochaException;
-import model.programstate.ProgramState;
-import model.value.Value;
 import model.container.IList;
 import model.expression.Expression;
+import model.programstate.ProgramState;
+import model.value.Value;
 
 public class PrintStatement implements Statement {
     Expression expression;

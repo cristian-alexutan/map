@@ -1,15 +1,14 @@
 package model.statement;
 
-import exceptions.MochaDictionaryException;
 import exceptions.MochaException;
 import exceptions.MochaExpEvalException;
+import exceptions.MochaFileException;
+import model.container.IDictionary;
 import model.expression.Expression;
 import model.programstate.ProgramState;
-import exceptions.MochaFileException;
 import model.type.StringType;
-import model.value.Value;
 import model.value.StringValue;
-import model.container.IDictionary;
+import model.value.Value;
 
 import java.io.BufferedReader;
 

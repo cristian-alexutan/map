@@ -1,7 +1,7 @@
 package model.type;
 
-import model.value.Value;
 import model.value.StringValue;
+import model.value.Value;
 
 public class StringType implements Type {
     @Override

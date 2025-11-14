@@ -13,4 +13,6 @@ public interface IList<T> {
     boolean isEmpty();
 
     String toString();
+
+    IList<T> deepCopy();
 }

@@ -1,12 +1,13 @@
 package utils;
 
-import model.expression.*;
+import model.expression.ArithmeticExpression;
+import model.expression.ValueExpression;
+import model.expression.VariableExpression;
 import model.statement.*;
 import model.type.BoolType;
 import model.type.IntType;
 import model.value.BoolValue;
 import model.value.IntValue;
-import model.value.StringValue;
 
 import java.util.Vector;
 

@@ -3,15 +3,14 @@ package model.statement;
 import exceptions.MochaException;
 import exceptions.MochaExpEvalException;
 import exceptions.MochaFileException;
-import model.value.StringValue;
-import model.type.StringType;
-import model.programstate.ProgramState;
 import model.container.IDictionary;
+import model.expression.Expression;
+import model.programstate.ProgramState;
+import model.type.StringType;
+import model.value.StringValue;
+import model.value.Value;
 
 import java.io.BufferedReader;
-
-import model.expression.Expression;
-import model.value.Value;
 
 public class CloseReadFileStatement implements Statement {
     private final Expression exp;

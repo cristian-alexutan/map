@@ -2,11 +2,10 @@ package model.expression;
 
 import exceptions.MochaDictionaryException;
 import exceptions.MochaExpEvalException;
-import model.value.Value;
-import model.value.BoolValue;
-import model.type.IntType;
-import model.type.Type;
 import model.container.IDictionary;
+import model.type.IntType;
+import model.value.BoolValue;
+import model.value.Value;
 
 public class RelationalExpression implements Expression {
     private final Expression left;

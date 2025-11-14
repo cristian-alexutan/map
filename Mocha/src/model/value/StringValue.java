@@ -1,7 +1,7 @@
 package model.value;
 
-import model.type.Type;
 import model.type.StringType;
+import model.type.Type;
 
 public class StringValue implements Value {
     private final String value;
