@@ -10,9 +10,9 @@ import model.value.Value;
 public class ArithmeticExpression implements Expression {
     Expression left;
     Expression right;
-    char operator;
+    ArithmeticOperator operator;
 
-    public ArithmeticExpression(Expression left, Expression right, char operator) {
+    public ArithmeticExpression(Expression left, Expression right, ArithmeticOperator operator) {
         this.left = left;
         this.right = right;
         this.operator = operator;
@@ -31,16 +31,16 @@ public class ArithmeticExpression implements Expression {
         int n1 = i1.getValue();
         int n2 = i2.getValue();
         switch (operator) {
-            case '+': {
+            case ADD: {
                 return new IntValue(n1 + n2);
             }
-            case '-': {
+            case SUBTRACT: {
                 return new IntValue(n1 - n2);
             }
-            case '*': {
+            case MULTIPLY: {
                 return new IntValue(n1 * n2);
             }
-            case '/': {
+            case DIVIDE: {
                 if (n2 == 0) throw new MochaExpEvalException("Cannot divide by zero");
                 return new IntValue(n1 / n2);
             }

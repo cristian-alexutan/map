@@ -1,6 +1,11 @@
 package model.type;
 
+import model.value.IntValue;
+import model.value.Value;
+
 public class IntType implements Type {
+    private static final IntValue DEFAULT_VALUE = new IntValue(0);
+
     @Override
     public boolean equals(Object another) {
         if (another instanceof IntType) return true;
@@ -13,7 +18,7 @@ public class IntType implements Type {
     }
 
     @Override
-    public model.value.Value defaultValue() {
-        return new model.value.IntValue(0);
+    public Value defaultValue() {
+        return DEFAULT_VALUE;
     }
 }
