@@ -1,8 +1,11 @@
 package model.type;
 
 import model.value.Value;
+import model.value.BoolValue;
 
 public class BoolType implements Type {
+    private static final BoolValue DEFAULT_VALUE = new model.value.BoolValue(false);
+
     @Override
     public boolean equals(Object another) {
         if (another instanceof BoolType) return true;
@@ -16,6 +19,6 @@ public class BoolType implements Type {
 
     @Override
     public Value defaultValue() {
-        return new model.value.BoolValue(false);
+        return DEFAULT_VALUE;
     }
 }
