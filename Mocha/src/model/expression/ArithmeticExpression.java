@@ -31,19 +31,16 @@ public class ArithmeticExpression implements Expression {
         IntValue i2 = (IntValue) rValue;
         int n1 = i1.getValue();
         int n2 = i2.getValue();
-        switch (operator) {
-            case ADD:
-                return new IntValue(n1 + n2);
-            case SUBTRACT:
-                return new IntValue(n1 - n2);
-            case MULTIPLY:
-                return new IntValue(n1 * n2);
-            case DIVIDE:
+        return switch (operator) {
+            case ADD -> new IntValue(n1 + n2);
+            case SUBTRACT -> new IntValue(n1 - n2);
+            case MULTIPLY -> new IntValue(n1 * n2);
+            case DIVIDE -> {
                 if (n2 == 0) throw new MochaExpEvalException("Cannot divide by zero");
-                return new IntValue(n1 / n2);
-            default:
-                throw new MochaExpEvalException("Invalid arithmetic operator: " + operator);
-        }
+                yield new IntValue(n1 / n2);
+            }
+            default -> throw new MochaExpEvalException("Invalid arithmetic operator: " + operator);
+        };
     }
 
     @Override

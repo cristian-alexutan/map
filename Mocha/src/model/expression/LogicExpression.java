@@ -33,14 +33,11 @@ public class LogicExpression implements Expression {
         BoolValue b2 = (BoolValue) rValue;
         boolean n1 = b1.getValue();
         boolean n2 = b2.getValue();
-        switch(operator) {
-            case AND:
-                return new BoolValue(n1 && n2);
-            case OR:
-                return new BoolValue(n1 || n2);
-            default:
-                throw new MochaExpEvalException("Invalid logical operator: " + operator);
-        }
+        return switch (operator) {
+            case AND -> new BoolValue(n1 && n2);
+            case OR -> new BoolValue(n1 || n2);
+            default -> throw new MochaExpEvalException("Invalid logical operator: " + operator);
+        };
     }
 
     @Override
