@@ -1,4 +1,4 @@
-package model.command;
+package view.command;
 
 public class ExitCommand extends Command {
     public ExitCommand(String key, String description) {

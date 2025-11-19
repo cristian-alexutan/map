@@ -1,4 +1,4 @@
-package model.command;
+package view.command;
 
 import controller.Controller;
 import exceptions.MochaException;
