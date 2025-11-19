@@ -1,6 +1,7 @@
 package model.expression;
 
 import exceptions.MochaDictionaryException;
+import exceptions.MochaException;
 import exceptions.MochaExpEvalException;
 import model.container.IDictionary;
 import model.type.BoolType;
@@ -10,16 +11,16 @@ import model.value.Value;
 public class LogicExpression implements Expression {
     Expression left;
     Expression right;
-    String operator;
+    LogicOperator operator;
 
-    public LogicExpression(Expression left, Expression right, String operator) {
+    public LogicExpression(Expression left, Expression right, LogicOperator operator) {
         this.left = left;
         this.right = right;
         this.operator = operator;
     }
 
     @Override
-    public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException, MochaDictionaryException {
+    public Value eval(IDictionary<String, Value> symTable) throws MochaException {
         Value lValue = left.eval(symTable);
         Value rValue = right.eval(symTable);
         if (!lValue.getType().equals(new BoolType())) {
@@ -32,9 +33,14 @@ public class LogicExpression implements Expression {
         BoolValue b2 = (BoolValue) rValue;
         boolean n1 = b1.getValue();
         boolean n2 = b2.getValue();
-        if (operator.equals("and")) return new BoolValue(n1 && n2);
-        if (operator.equals("or")) return new BoolValue(n1 || n2);
-        return null;
+        switch(operator) {
+            case AND:
+                return new BoolValue(n1 && n2);
+            case OR:
+                return new BoolValue(n1 || n2);
+            default:
+                throw new MochaExpEvalException("Invalid logical operator: " + operator);
+        }
     }
 
     @Override
