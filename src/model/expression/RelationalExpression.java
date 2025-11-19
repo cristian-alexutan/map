@@ -1,6 +1,7 @@
 package model.expression;
 
 import exceptions.MochaDictionaryException;
+import exceptions.MochaException;
 import exceptions.MochaExpEvalException;
 import model.container.IDictionary;
 import model.type.IntType;
@@ -19,7 +20,7 @@ public class RelationalExpression implements Expression {
     }
 
     @Override
-    public Value eval(IDictionary<String, Value> symTable) throws MochaDictionaryException, MochaExpEvalException {
+    public Value eval(IDictionary<String, Value> symTable) throws MochaException {
         Value leftVal = left.eval(symTable);
         Value rightVal = right.eval(symTable);
 
@@ -51,7 +52,7 @@ public class RelationalExpression implements Expression {
                 result = leftInt >= rightInt;
                 break;
             default:
-                throw new RuntimeException("Invalid relational operator: " + operator);
+                throw new MochaExpEvalException("Invalid relational operator: " + operator);
         }
 
         return new BoolValue(result);

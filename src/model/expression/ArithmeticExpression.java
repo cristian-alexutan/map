@@ -1,6 +1,7 @@
 package model.expression;
 
 import exceptions.MochaDictionaryException;
+import exceptions.MochaException;
 import exceptions.MochaExpEvalException;
 import model.container.IDictionary;
 import model.type.IntType;
@@ -19,7 +20,7 @@ public class ArithmeticExpression implements Expression {
     }
 
     @Override
-    public Value eval(IDictionary<String, Value> symTable) throws MochaExpEvalException, MochaDictionaryException {
+    public Value eval(IDictionary<String, Value> symTable) throws MochaException {
         Value lValue = left.eval(symTable);
         Value rValue = right.eval(symTable);
         if (!lValue.getType().equals(new IntType()))
@@ -31,21 +32,18 @@ public class ArithmeticExpression implements Expression {
         int n1 = i1.getValue();
         int n2 = i2.getValue();
         switch (operator) {
-            case ADD: {
+            case ADD:
                 return new IntValue(n1 + n2);
-            }
-            case SUBTRACT: {
+            case SUBTRACT:
                 return new IntValue(n1 - n2);
-            }
-            case MULTIPLY: {
+            case MULTIPLY:
                 return new IntValue(n1 * n2);
-            }
-            case DIVIDE: {
+            case DIVIDE:
                 if (n2 == 0) throw new MochaExpEvalException("Cannot divide by zero");
                 return new IntValue(n1 / n2);
-            }
+            default:
+                throw new MochaExpEvalException("Invalid arithmetic operator: " + operator);
         }
-        return null;
     }
 
     @Override
