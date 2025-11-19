@@ -30,30 +30,15 @@ public class RelationalExpression implements Expression {
 
         int leftInt = ((model.value.IntValue) leftVal).getValue();
         int rightInt = ((model.value.IntValue) rightVal).getValue();
-        boolean result;
-
-        switch (operator) {
-            case LESS:
-                result = leftInt < rightInt;
-                break;
-            case LESS_EQUAL:
-                result = leftInt <= rightInt;
-                break;
-            case EQUAL:
-                result = leftInt == rightInt;
-                break;
-            case NOT_EQUAL:
-                result = leftInt != rightInt;
-                break;
-            case GREATER:
-                result = leftInt > rightInt;
-                break;
-            case GREATER_EQUAL:
-                result = leftInt >= rightInt;
-                break;
-            default:
-                throw new MochaExpEvalException("Invalid relational operator: " + operator);
-        }
+        boolean result = switch (operator) {
+            case LESS -> leftInt < rightInt;
+            case LESS_EQUAL -> leftInt <= rightInt;
+            case EQUAL -> leftInt == rightInt;
+            case NOT_EQUAL -> leftInt != rightInt;
+            case GREATER -> leftInt > rightInt;
+            case GREATER_EQUAL -> leftInt >= rightInt;
+            default -> throw new MochaExpEvalException("Invalid relational operator: " + operator);
+        };
 
         return new BoolValue(result);
     }
