@@ -14,7 +14,6 @@ import utils.HardcodedPrograms;
 import view.TextMenu;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 
 public class Interpreter {
     private Controller createController(Statement ex, String logFilePath) throws MochaException {
@@ -28,13 +27,11 @@ public class Interpreter {
         return new Controller(repository, true);
     }
 
-    static void main(String[] args) throws MochaException, IOException {
-        HardcodedPrograms hardcodedPrograms = new HardcodedPrograms();
-
-        Statement ex1 = hardcodedPrograms.getStatement(0);
-        Statement ex2 = hardcodedPrograms.getStatement(1);
-        Statement ex3 = hardcodedPrograms.getStatement(2);
-        Statement ex4 = hardcodedPrograms.getStatement(3);
+    static void main(String[] args) throws MochaException {
+        Statement ex1 = HardcodedPrograms.getStatement(0);
+        Statement ex2 = HardcodedPrograms.getStatement(1);
+        Statement ex3 = HardcodedPrograms.getStatement(2);
+        Statement ex4 = HardcodedPrograms.getStatement(3);
 
         Controller controller1 = new Interpreter().createController(ex1, "log1.txt");
         Controller controller2 = new Interpreter().createController(ex2, "log2.txt");
