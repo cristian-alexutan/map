@@ -2,8 +2,8 @@ package interpreter;
 
 import controller.Controller;
 import exceptions.MochaException;
-import model.command.ExitCommand;
-import model.command.RunExampleCommand;
+import view.command.ExitCommand;
+import view.command.RunExampleCommand;
 import model.container.*;
 import model.programstate.ProgramState;
 import model.statement.Statement;
@@ -11,7 +11,7 @@ import model.value.Value;
 import repository.IRepository;
 import repository.Repository;
 import utils.HardcodedPrograms;
-import view.TextMenu;
+import view.textmenu.TextMenu;
 
 import java.io.BufferedReader;
 

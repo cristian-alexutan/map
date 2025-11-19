@@ -1,6 +1,6 @@
-package view;
+package view.textmenu;
 
-import model.command.Command;
+import view.command.Command;
 
 import java.util.HashMap;
 import java.util.Map;

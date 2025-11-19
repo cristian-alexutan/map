@@ -1,4 +1,4 @@
-package model.command;
+package view.command;
 
 public abstract class Command {
     private String key, description;
