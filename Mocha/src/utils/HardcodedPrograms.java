@@ -186,6 +186,20 @@ public final class HardcodedPrograms {
                         )
                 );
 
+        Statement ex8 =
+                new CompoundStatement(
+                        new DeclarationStatement("v", new model.type.RefType(new IntType())),
+                        new CompoundStatement(
+                                new NewStatement("v", new ValueExpression(new IntValue(20))),
+                                new CompoundStatement(
+                                        new NewStatement("v", new ValueExpression(new IntValue(30))),
+                                        new PrintStatement(
+                                                new model.expression.ReadHeapExpression(new VariableExpression("v"))
+                                        )
+                                )
+                        )
+                );
+
         STATEMENTS.add(ex1);
         STATEMENTS.add(ex2);
         STATEMENTS.add(ex3);
@@ -193,6 +207,7 @@ public final class HardcodedPrograms {
         STATEMENTS.add(ex5);
         STATEMENTS.add(ex6);
         STATEMENTS.add(ex7);
+        STATEMENTS.add(ex8);
     }
 
     private HardcodedPrograms() {

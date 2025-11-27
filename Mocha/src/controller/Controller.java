@@ -78,6 +78,9 @@ public class Controller {
                             programState.getHeap().getContent()
                     )
             );
+            if (displayFlag) {
+                repository.logPrgStateExec();
+            }
         }
     }
 }
