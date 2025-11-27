@@ -22,7 +22,8 @@ public class Interpreter {
         IList<Value> out = new MochaList<>();
         IDictionary<String, BufferedReader> fileTable = new MochaDictionary<>();
         exeStack.push(ex);
-        ProgramState programState = new ProgramState(exeStack, symTable, out, fileTable);
+        IHeap heap = new MochaHeap();
+        ProgramState programState = new ProgramState(exeStack, symTable, out, fileTable, heap);
         IRepository repository = new Repository(programState, logFilePath);
         return new Controller(repository, true);
     }

@@ -5,6 +5,7 @@ import model.container.IList;
 import model.container.IStack;
 import model.statement.Statement;
 import model.value.Value;
+import model.container.IHeap;
 
 import java.io.BufferedReader;
 
@@ -13,12 +14,14 @@ public class ProgramState {
     private IDictionary<String, Value> symTable;
     private IList<Value> out;
     private IDictionary<String, BufferedReader> fileTable;
+    private IHeap heap;
 
-    public ProgramState(IStack<Statement> exeStack, IDictionary<String, Value> symTable, IList<Value> out, IDictionary<String, BufferedReader> fileTable) {
+    public ProgramState(IStack<Statement> exeStack, IDictionary<String, Value> symTable, IList<Value> out, IDictionary<String, BufferedReader> fileTable, IHeap heap) {
         this.exeStack = exeStack;
         this.symTable = symTable;
         this.out = out;
         this.fileTable = fileTable;
+        this.heap = heap;
     }
 
     public IStack<Statement> getExeStack() {
@@ -53,12 +56,20 @@ public class ProgramState {
         this.fileTable = fileTable;
     }
 
+    public IHeap getHeap() {
+        return heap;
+    }
+
+    public void setHeap(IHeap heap) {
+        this.heap = heap;
+    }
+
     @Override
     public String toString() {
         return "ExeStack:\n" + exeStack.toString() + "SymTable:\n" + symTable.toString() + "Out:\n" + out.toString() + "FileTable:\n" + fileTable.keyString();
     }
 
     public ProgramState deepCopy() {
-        return new ProgramState(exeStack.deepCopy(), symTable.deepCopy(), out.deepCopy(), fileTable.deepCopy());
+        return new ProgramState(exeStack.deepCopy(), symTable.deepCopy(), out.deepCopy(), fileTable.deepCopy(), heap.deepCopy());
     }
 }
