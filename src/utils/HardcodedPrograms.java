@@ -13,6 +13,8 @@ import java.util.Vector;
 
 import static model.expression.ArithmeticOperator.ADD;
 import static model.expression.ArithmeticOperator.MULTIPLY;
+import static model.expression.ArithmeticOperator.SUBTRACT;
+import static model.expression.RelationalOperator.GREATER;
 
 public final class HardcodedPrograms {
     private static final Vector<Statement> STATEMENTS = new Vector<>();
@@ -165,7 +167,7 @@ public final class HardcodedPrograms {
                                                 new model.expression.RelationalExpression(
                                                         new VariableExpression("v"),
                                                         new ValueExpression(new IntValue(0)),
-                                                        model.expression.RelationalOperator.GREATER
+                                                        GREATER
                                                 ),
                                                 new CompoundStatement(
                                                         new PrintStatement(new VariableExpression("v")),
@@ -174,7 +176,7 @@ public final class HardcodedPrograms {
                                                                 new ArithmeticExpression(
                                                                         new VariableExpression("v"),
                                                                         new ValueExpression(new IntValue(1)),
-                                                                        model.expression.ArithmeticOperator.SUBTRACT
+                                                                        SUBTRACT
                                                                 )
                                                         )
                                                 )
