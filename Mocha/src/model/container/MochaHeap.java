@@ -4,9 +4,10 @@ import exceptions.MochaException;
 import model.value.Value;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MochaHeap implements IHeap {
-    HashMap<Integer, Value> heap;
+    Map<Integer, Value> heap;
     int nextFree;
 
     public MochaHeap() {
@@ -47,8 +48,13 @@ public class MochaHeap implements IHeap {
     }
 
     @Override
-    public HashMap<Integer, Value> getHashMap() {
+    public Map<Integer, Value> getContent() {
         return heap;
+    }
+
+    @Override
+    public void setContent(Map<Integer, Value> newContent) {
+        heap = newContent;
     }
 
     @Override

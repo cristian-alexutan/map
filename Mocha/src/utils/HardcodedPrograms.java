@@ -131,11 +131,37 @@ public final class HardcodedPrograms {
                         )
                 );
 
+        // Ref int v; new(v, 20); Ref Ref int a; new(a, v); new(v, 30); print(rH(rH(a)))
+        Statement ex6 =
+                new CompoundStatement(
+                        new DeclarationStatement("v", new model.type.RefType(new IntType())),
+                        new CompoundStatement(
+                                new NewStatement("v", new ValueExpression(new IntValue(20))),
+                                new CompoundStatement(
+                                        new DeclarationStatement("a", new model.type.RefType(new model.type.RefType(new IntType()))),
+                                        new CompoundStatement(
+                                                new NewStatement("a", new VariableExpression("v")),
+                                                new CompoundStatement(
+                                                        new NewStatement("v", new ValueExpression(new IntValue(30))),
+                                                        new PrintStatement(
+                                                                new model.expression.ReadHeapExpression(
+                                                                        new model.expression.ReadHeapExpression(
+                                                                                new VariableExpression("a")
+                                                                        )
+                                                                )
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                );
+
         STATEMENTS.add(ex1);
         STATEMENTS.add(ex2);
         STATEMENTS.add(ex3);
         STATEMENTS.add(ex4);
         STATEMENTS.add(ex5);
+        STATEMENTS.add(ex6);
     }
 
     private HardcodedPrograms() {

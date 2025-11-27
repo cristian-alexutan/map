@@ -3,7 +3,7 @@ package model.container;
 import exceptions.MochaException;
 import model.value.Value;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public interface IHeap {
     int allocate(Value value);
@@ -16,7 +16,9 @@ public interface IHeap {
 
     boolean containsAddress(int address);
 
-    HashMap<Integer, Value> getHashMap();
+    Map<Integer, Value> getContent();
+
+    void setContent(Map<Integer, Value> newContent);
 
     IHeap deepCopy();
 

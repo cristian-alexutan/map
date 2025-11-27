@@ -2,6 +2,7 @@ package model.container;
 
 import exceptions.MochaDictionaryException;
 import exceptions.MochaException;
+import java.util.Map;
 
 public interface IDictionary<TKey, TValue> {
     void insert(TKey key, TValue value);
@@ -17,6 +18,8 @@ public interface IDictionary<TKey, TValue> {
     String toString();
 
     String keyString();
+
+    Map<TKey, TValue> getContent();
 
     IDictionary<TKey, TValue> deepCopy();
 }
