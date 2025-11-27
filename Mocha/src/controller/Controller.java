@@ -9,10 +9,7 @@ import repository.IRepository;
 import model.value.Value;
 import model.value.RefValue;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Controller {
@@ -24,23 +21,37 @@ public class Controller {
         this.displayFlag = displayFlag;
     }
 
-    public List<Integer> getAddressesFromSymTable(Collection<Value> symTableValues) {
-        return symTableValues.stream()
-                .filter(v -> v instanceof RefValue)
-                .map(v -> {RefValue v1 = (RefValue) v; return v1.getAddress();})
-                .collect(Collectors.toList());
+    public List<Integer> getAccessibleAddresses(Collection<Value> symTableValues, Map<Integer, Value> heap) {
+        Set<Integer> visited = new HashSet<>();
+        Deque<Integer> stack = new ArrayDeque<>();
+
+        for (Value v : symTableValues) {
+            if (v instanceof RefValue) {
+                int addr = ((RefValue) v).getAddress();
+                if (!visited.contains(addr)) {
+                    visited.add(addr);
+                    stack.push(addr);
+                }
+            }
+        }
+        while (!stack.isEmpty()) {
+            int addr = stack.pop();
+            Value hv = heap.get(addr);
+            if (hv instanceof RefValue) {
+                int inner = ((RefValue) hv).getAddress();
+                if (!visited.contains(inner)) {
+                    visited.add(inner);
+                    stack.push(inner);
+                }
+            }
+        }
+
+        return new ArrayList<>(visited);
     }
 
-    public List<Integer> getAddressesFromHeap(Collection<Value> heapValues) {
-        return heapValues.stream()
-                .filter(v -> v instanceof RefValue)
-                .map(v -> {RefValue v1 = (RefValue) v; return v1.getAddress();})
-                .collect(Collectors.toList());
-    }
-
-    public Map<Integer, Value> safeGarbageCollector(List<Integer> symTableAddresses, List<Integer> heapAddresses, Map<Integer, Value> heap) {
+    public Map<Integer, Value> safeGarbageCollector(List<Integer> accessibleAddresses, Map<Integer, Value> heap) {
         return heap.entrySet().stream()
-                .filter(e -> ( symTableAddresses.contains(e.getKey()) || heapAddresses.contains(e.getKey())))
+                .filter(e -> ( accessibleAddresses.contains(e.getKey())))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
@@ -73,8 +84,10 @@ public class Controller {
             }
             programState.getHeap().setContent(
                     safeGarbageCollector(
-                            getAddressesFromSymTable(programState.getSymTable().getContent().values()),
-                            getAddressesFromHeap(programState.getHeap().getContent().values()),
+                            getAccessibleAddresses(
+                                    programState.getSymTable().getContent().values(),
+                                    programState.getHeap().getContent()
+                            ),
                             programState.getHeap().getContent()
                     )
             );
