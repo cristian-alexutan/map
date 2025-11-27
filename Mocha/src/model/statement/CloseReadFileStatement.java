@@ -21,7 +21,7 @@ public class CloseReadFileStatement implements Statement {
 
     @Override
     public ProgramState execute(ProgramState state) throws MochaException {
-        Value value = exp.eval(state.getSymTable());
+        Value value = exp.eval(state.getSymTable(), state.getHeap());
         if (!value.getType().equals(new StringType())) {
             throw new MochaExpEvalException("File path expression does not evaluate to a string.");
         }

@@ -7,6 +7,7 @@ import model.container.IDictionary;
 import model.type.BoolType;
 import model.value.BoolValue;
 import model.value.Value;
+import model.container.IHeap;
 
 public class LogicExpression implements Expression {
     Expression left;
@@ -20,9 +21,9 @@ public class LogicExpression implements Expression {
     }
 
     @Override
-    public Value eval(IDictionary<String, Value> symTable) throws MochaException {
-        Value lValue = left.eval(symTable);
-        Value rValue = right.eval(symTable);
+    public Value eval(IDictionary<String, Value> symTable, IHeap heap) throws MochaException {
+        Value lValue = left.eval(symTable, heap);
+        Value rValue = right.eval(symTable, heap);
         if (!lValue.getType().equals(new BoolType())) {
             throw new MochaExpEvalException("Left operand is not a boolean.");
         }

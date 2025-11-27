@@ -24,7 +24,7 @@ public class ReadFileStatement implements Statement {
     @Override
     public ProgramState execute(ProgramState state) throws MochaException {
         IDictionary<String, BufferedReader> fileTable = state.getFileTable();
-        Value value = exp.eval(state.getSymTable());
+        Value value = exp.eval(state.getSymTable(), state.getHeap());
         if (!value.getType().equals(new StringType())) {
             throw new MochaFileException("File path expression does not evaluate to a string.");
         }

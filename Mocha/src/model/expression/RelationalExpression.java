@@ -7,6 +7,7 @@ import model.container.IDictionary;
 import model.type.IntType;
 import model.value.BoolValue;
 import model.value.Value;
+import model.container.IHeap;
 
 public class RelationalExpression implements Expression {
     private final Expression left;
@@ -20,9 +21,9 @@ public class RelationalExpression implements Expression {
     }
 
     @Override
-    public Value eval(IDictionary<String, Value> symTable) throws MochaException {
-        Value leftVal = left.eval(symTable);
-        Value rightVal = right.eval(symTable);
+    public Value eval(IDictionary<String, Value> symTable, IHeap heap) throws MochaException {
+        Value leftVal = left.eval(symTable, heap);
+        Value rightVal = right.eval(symTable, heap);
 
         if (!leftVal.getType().equals(new IntType()) || !rightVal.getType().equals(new IntType())) {
             throw new RuntimeException("Relational expressions require integer operands.");

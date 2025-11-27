@@ -21,7 +21,7 @@ public class OpenReadFileStatement implements Statement {
 
     @Override
     public ProgramState execute(ProgramState state) throws MochaException {
-        Value value = expression.eval(state.getSymTable());
+        Value value = expression.eval(state.getSymTable(), state.getHeap());
         if (value.getType().equals(new StringType())) {
             StringValue stringValue = (StringValue) value;
             String fileName = stringValue.getValue();
