@@ -20,7 +20,7 @@ public class AssignStatement implements Statement {
     public ProgramState execute(ProgramState state) throws MochaException {
         if (!state.getSymTable().hasKey(key))
             throw new MochaException("The variable " + key + " was not declared before.");
-        Value val = expression.eval(state.getSymTable());
+        Value val = expression.eval(state.getSymTable(), state.getHeap());
         Type typeId = (state.getSymTable().get(key)).getType();
         if (val.getType().equals(typeId)) state.getSymTable().insert(key, val);
         else

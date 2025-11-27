@@ -22,7 +22,7 @@ public class IfStatement implements Statement {
     @Override
     public ProgramState execute(ProgramState state) throws MochaException {
         IStack<Statement> stack = state.getExeStack();
-        Value result = condition.eval(state.getSymTable());
+        Value result = condition.eval(state.getSymTable(), state.getHeap());
         if (result.getType().equals(new BoolType())) {
             boolean cond = ((BoolValue) result).getValue();
             if (cond) stack.push(thenStatement);

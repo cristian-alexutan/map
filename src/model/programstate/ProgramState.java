@@ -66,7 +66,7 @@ public class ProgramState {
 
     @Override
     public String toString() {
-        return "ExeStack:\n" + exeStack.toString() + "SymTable:\n" + symTable.toString() + "Out:\n" + out.toString() + "FileTable:\n" + fileTable.keyString();
+        return "ExeStack:\n" + exeStack.toString() + "SymTable:\n" + symTable.toString() + "Out:\n" + out.toString() + "FileTable:\n" + fileTable.keyString() + "Heap:\n" + heap.toString();
     }
 
     public ProgramState deepCopy() {

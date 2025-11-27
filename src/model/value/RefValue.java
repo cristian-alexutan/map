@@ -16,7 +16,17 @@ public class RefValue implements Value {
         return address;
     }
 
+    public Type getLocationType() {
+        return locationType;
+    }
+
+    @Override
     public Type getType() {
         return new RefType(locationType);
+    }
+
+    @Override
+    public String toString() {
+        return "ref(" + Integer.toString(address) + ", " + locationType.toString() + ")";
     }
 }
