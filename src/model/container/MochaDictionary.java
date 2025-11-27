@@ -3,9 +3,10 @@ package model.container;
 import exceptions.MochaDictionaryException;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class MochaDictionary<TKey, TValue> implements IDictionary<TKey, TValue> {
-    HashMap<TKey, TValue> map;
+    Map<TKey, TValue> map;
 
     public MochaDictionary() {
         map = new HashMap<>();
@@ -53,6 +54,11 @@ public class MochaDictionary<TKey, TValue> implements IDictionary<TKey, TValue> 
         for (TKey key : map.keySet())
             ans.append(key.toString()).append("\n");
         return ans.toString();
+    }
+
+    @Override
+    public Map<TKey, TValue> getContent() {
+        return map;
     }
 
     @Override
