@@ -131,7 +131,6 @@ public final class HardcodedPrograms {
                         )
                 );
 
-        // Ref int v; new(v, 20); Ref Ref int a; new(a, v); new(v, 30); print(rH(rH(a)))
         Statement ex6 =
                 new CompoundStatement(
                         new DeclarationStatement("v", new model.type.RefType(new IntType())),
@@ -156,12 +155,42 @@ public final class HardcodedPrograms {
                         )
                 );
 
+        Statement ex7 =
+                new CompoundStatement(
+                        new DeclarationStatement("v", new IntType()),
+                        new CompoundStatement(
+                                new AssignStatement("v", new ValueExpression(new IntValue(4))),
+                                new CompoundStatement(
+                                        new WhileStatement(
+                                                new model.expression.RelationalExpression(
+                                                        new VariableExpression("v"),
+                                                        new ValueExpression(new IntValue(0)),
+                                                        model.expression.RelationalOperator.GREATER
+                                                ),
+                                                new CompoundStatement(
+                                                        new PrintStatement(new VariableExpression("v")),
+                                                        new AssignStatement(
+                                                                "v",
+                                                                new ArithmeticExpression(
+                                                                        new VariableExpression("v"),
+                                                                        new ValueExpression(new IntValue(1)),
+                                                                        model.expression.ArithmeticOperator.SUBTRACT
+                                                                )
+                                                        )
+                                                )
+                                        ),
+                                        new PrintStatement(new VariableExpression("v"))
+                                )
+                        )
+                );
+
         STATEMENTS.add(ex1);
         STATEMENTS.add(ex2);
         STATEMENTS.add(ex3);
         STATEMENTS.add(ex4);
         STATEMENTS.add(ex5);
         STATEMENTS.add(ex6);
+        STATEMENTS.add(ex7);
     }
 
     private HardcodedPrograms() {

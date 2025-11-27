@@ -43,4 +43,9 @@ public class RelationalExpression implements Expression {
 
         return new BoolValue(result);
     }
+
+    @Override
+    public String toString() {
+        return "(" + left.toString() + " " + operator.toString() + " " + right.toString() + ")";
+    }
 }
