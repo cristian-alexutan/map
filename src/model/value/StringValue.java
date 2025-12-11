@@ -32,4 +32,9 @@ public class StringValue implements Value {
     public String toString() {
         return "\"" + value + "\"";
     }
+
+    @Override
+    public Value deepCopy() {
+        return new StringValue(this.value);
+    }
 }

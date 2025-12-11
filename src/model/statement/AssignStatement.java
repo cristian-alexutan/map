@@ -27,7 +27,7 @@ public class AssignStatement implements Statement {
             throw new MochaException("Declared type of variable " + key + " and type of the assigned expression do not match.");
         IDictionary<String, Value> symTable = state.getSymTable();
         symTable.update(key, val);
-        return state;
+        return null;
     }
 
     @Override

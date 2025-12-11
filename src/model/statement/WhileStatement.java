@@ -34,7 +34,7 @@ public class WhileStatement implements Statement {
             exeStack.push(this);
             exeStack.push(body);
         }
-        return state;
+        return null;
     }
 
     @Override

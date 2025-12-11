@@ -39,7 +39,7 @@ public class OpenReadFileStatement implements Statement {
         } else {
             throw new MochaExpEvalException("File path expression does not evaluate to a string.");
         }
-        return state;
+        return null;
     }
 
     @Override

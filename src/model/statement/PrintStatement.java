@@ -17,7 +17,7 @@ public class PrintStatement implements Statement {
     public ProgramState execute(ProgramState state) throws MochaException {
         IList<Value> out = state.getOut();
         out.add(expression.eval(state.getSymTable(), state.getHeap()));
-        return state;
+        return null;
     }
 
     @Override

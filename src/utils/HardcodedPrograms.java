@@ -1,6 +1,7 @@
 package utils;
 
 import model.expression.ArithmeticExpression;
+import model.expression.ReadHeapExpression;
 import model.expression.ValueExpression;
 import model.expression.VariableExpression;
 import model.statement.*;
@@ -11,9 +12,7 @@ import model.value.IntValue;
 
 import java.util.Vector;
 
-import static model.expression.ArithmeticOperator.ADD;
-import static model.expression.ArithmeticOperator.MULTIPLY;
-import static model.expression.ArithmeticOperator.SUBTRACT;
+import static model.expression.ArithmeticOperator.*;
 import static model.expression.RelationalOperator.GREATER;
 
 public final class HardcodedPrograms {
@@ -200,6 +199,40 @@ public final class HardcodedPrograms {
                         )
                 );
 
+        // int v; Ref int a ; v = 10; new(a, 22); fork(wH(a, 30); v = 32; print(v); print(rH(a))); print(v); print(rH(a));
+
+        Statement ex9 =
+                new CompoundStatement(
+                        new DeclarationStatement("v", new IntType()),
+                        new CompoundStatement(
+                                new DeclarationStatement("a", new model.type.RefType(new IntType())),
+                                new CompoundStatement(
+                                        new AssignStatement("v", new ValueExpression(new IntValue(10))),
+                                        new CompoundStatement(
+                                                new NewStatement("a", new ValueExpression(new IntValue(22))),
+                                                new CompoundStatement(
+                                                        new ForkStatement(
+                                                                new CompoundStatement(
+                                                                        new WriteHeapStatement("a", new ValueExpression(new IntValue(30))),
+                                                                        new CompoundStatement(
+                                                                                new AssignStatement("v", new ValueExpression(new IntValue(32))),
+                                                                                new CompoundStatement(
+                                                                                        new PrintStatement(new VariableExpression("v")),
+                                                                                        new PrintStatement(new ReadHeapExpression(new VariableExpression("a")))
+                                                                                )
+                                                                        )
+                                                                )
+                                                        ),
+                                                        new CompoundStatement(
+                                                                new PrintStatement(new VariableExpression("v")),
+                                                                new PrintStatement(new ReadHeapExpression(new VariableExpression("a")))
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                );
+
         STATEMENTS.add(ex1);
         STATEMENTS.add(ex2);
         STATEMENTS.add(ex3);
@@ -208,6 +241,7 @@ public final class HardcodedPrograms {
         STATEMENTS.add(ex6);
         STATEMENTS.add(ex7);
         STATEMENTS.add(ex8);
+        STATEMENTS.add(ex9);
     }
 
     private HardcodedPrograms() {

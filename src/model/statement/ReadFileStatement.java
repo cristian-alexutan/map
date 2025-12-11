@@ -52,7 +52,7 @@ public class ReadFileStatement implements Statement {
         } catch (NumberFormatException e) {
             throw new MochaFileException("Error parsing integer from file: " + e.getMessage());
         }
-        return state;
+        return null;
     }
 
     @Override
