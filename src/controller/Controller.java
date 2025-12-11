@@ -78,13 +78,6 @@ public class Controller {
     public void oneStepForAllPrograms(List<ProgramState> programStates) throws MochaException, InterruptedException {
         List<ProgramState> prgList = programStates;
 
-        prgList.forEach(prg -> {
-            try {
-                repository.logPrgStateExec(prg);
-            } catch (MochaException e) {
-                System.out.println(e.getMessage());
-            }
-        });
 
         List<Callable<ProgramState>> callList = prgList.stream()
                 .map((ProgramState p) -> (Callable<ProgramState>) (() -> {
@@ -106,14 +99,6 @@ public class Controller {
 
         prgList.addAll(newProgramList);
 
-        prgList.forEach(prg -> {
-            try {
-                repository.logPrgStateExec(prg);
-            } catch (MochaException e) {
-                System.out.println(e.getMessage());
-            }
-        });
-
         repository.setProgramStateList(prgList);
     }
 
@@ -132,10 +117,26 @@ public class Controller {
         executor = Executors.newFixedThreadPool(2);
         List<ProgramState> programStates = removeCompletedPrograms(repository.getProgramStateList());
 
+        if(displayFlag) {
+            for (ProgramState prg : programStates) {
+                repository.logPrgStateExec(prg);
+            }
+        }
+
         while (!programStates.isEmpty()) {
             try {
                 oneStepForAllPrograms(programStates);
+                if(displayFlag) {
+                    for (ProgramState prg : programStates) {
+                        repository.logPrgStateExec(prg);
+                    }
+                }
                 conservativeGarbageCollector(programStates);
+                if(displayFlag) {
+                    for (ProgramState prg : programStates) {
+                        repository.logPrgStateExec(prg);
+                    }
+                }
                 programStates = removeCompletedPrograms(repository.getProgramStateList());
             }
             catch (InterruptedException e) {
