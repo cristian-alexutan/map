@@ -102,15 +102,23 @@ public class Controller {
         repository.setProgramStateList(prgList);
     }
 
-    public void conservativeGarbageCollector(List<ProgramState> programStates) {
+    public boolean conservativeGarbageCollector(List<ProgramState> programStates) {
         List<Integer> allAddresses = programStates.stream()
                 .flatMap(prg -> getAccessibleAddresses(prg.getSymTable().getContent().values(), prg.getHeap().getContent()).stream())
                 .distinct()
                 .collect(Collectors.toList());
 
-        programStates.forEach(prg -> {
-            prg.getHeap().setContent(safeGarbageCollector(allAddresses, prg.getHeap().getContent()));
-        });
+        boolean erased = false;
+        for (ProgramState prg : programStates) {
+            Map<Integer, Value> oldHeap = prg.getHeap().getContent();
+            Map<Integer, Value> newHeap = safeGarbageCollector(allAddresses, oldHeap);
+            if (newHeap.size() != oldHeap.size()) {
+                erased = true;
+            }
+            prg.getHeap().setContent(newHeap);
+        }
+
+        return erased;
     }
 
     public void allSteps() throws MochaException {
@@ -131,8 +139,8 @@ public class Controller {
                         repository.logPrgStateExec(prg);
                     }
                 }
-                conservativeGarbageCollector(programStates);
-                if(displayFlag) {
+                boolean erased = conservativeGarbageCollector(programStates);
+                if(displayFlag && erased) {
                     for (ProgramState prg : programStates) {
                         repository.logPrgStateExec(prg);
                     }
