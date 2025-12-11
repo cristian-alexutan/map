@@ -199,8 +199,6 @@ public final class HardcodedPrograms {
                         )
                 );
 
-        // int v; Ref int a ; v = 10; new(a, 22); fork(wH(a, 30); v = 32; print(v); print(rH(a))); print(v); print(rH(a));
-
         Statement ex9 =
                 new CompoundStatement(
                         new DeclarationStatement("v", new IntType()),
@@ -233,6 +231,21 @@ public final class HardcodedPrograms {
                         )
                 );
 
+        // ref(int) a; new(a, 20); fork(print(rH(a)); new(a, 30));
+        Statement ex10 =
+                new CompoundStatement(
+                        new DeclarationStatement("a", new model.type.RefType(new IntType())),
+                        new CompoundStatement(
+                                new NewStatement("a", new ValueExpression(new IntValue(20))),
+                                new ForkStatement(
+                                        new CompoundStatement(
+                                                new PrintStatement(new ReadHeapExpression(new VariableExpression("a"))),
+                                                new NewStatement("a", new ValueExpression(new IntValue(30)))
+                                        )
+                                )
+                        )
+                );
+
         STATEMENTS.add(ex1);
         STATEMENTS.add(ex2);
         STATEMENTS.add(ex3);
@@ -242,6 +255,7 @@ public final class HardcodedPrograms {
         STATEMENTS.add(ex7);
         STATEMENTS.add(ex8);
         STATEMENTS.add(ex9);
+        STATEMENTS.add(ex10);
     }
 
     private HardcodedPrograms() {
