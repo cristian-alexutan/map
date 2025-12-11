@@ -16,49 +16,49 @@ public class MochaHeap implements IHeap {
     }
 
     @Override
-    public int allocate(Value value) {
+    public synchronized int allocate(Value value) {
         heap.put(nextFree, value);
         return nextFree++;
     }
 
     @Override
-    public void deallocate(int address) throws MochaException {
+    public synchronized void deallocate(int address) throws MochaException {
         if (!heap.containsKey(address))
             throw new MochaException("Invalid heap address: " + address);
         heap.remove(address);
     }
 
     @Override
-    public Value read(int address) throws MochaException {
+    public synchronized Value read(int address) throws MochaException {
         if (!heap.containsKey(address))
             throw new MochaException("Invalid heap address: " + address);
         return heap.get(address);
     }
 
     @Override
-    public void write(int address, Value value) throws MochaException {
+    public synchronized void write(int address, Value value) throws MochaException {
         if (!heap.containsKey(address))
             throw new MochaException("Invalid heap address: " + address);
         heap.put(address, value);
     }
 
     @Override
-    public boolean containsAddress(int address) {
+    public synchronized boolean containsAddress(int address) {
         return heap.containsKey(address);
     }
 
     @Override
-    public Map<Integer, Value> getContent() {
+    public synchronized Map<Integer, Value> getContent() {
         return heap;
     }
 
     @Override
-    public void setContent(Map<Integer, Value> newContent) {
+    public synchronized void setContent(Map<Integer, Value> newContent) {
         heap = newContent;
     }
 
     @Override
-    public String toString() {
+    public synchronized String toString() {
         StringBuilder ans = new StringBuilder();
         for (int address : heap.keySet())
             ans.append(address).append(" -> ").append(heap.get(address).toString()).append("\n");
@@ -66,7 +66,7 @@ public class MochaHeap implements IHeap {
     }
 
     @Override
-    public IHeap deepCopy() {
+    public synchronized IHeap deepCopy() {
         MochaHeap newHeap = new MochaHeap();
         newHeap.nextFree = this.nextFree;
         for (int address : heap.keySet()) {
