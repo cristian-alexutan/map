@@ -44,7 +44,7 @@ public class NewStatement implements Statement{
         RefValue newRefValue = new RefValue(newAddress, refType.getInner());
         symTable.update(varName, newRefValue);
 
-        return state;
+        return null;
     }
 
     @Override

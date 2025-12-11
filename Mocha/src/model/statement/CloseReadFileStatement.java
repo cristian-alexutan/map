@@ -40,7 +40,7 @@ public class CloseReadFileStatement implements Statement {
         } else {
             throw new MochaFileException("File " + filePath.getValue() + " is not opened.");
         }
-        return state;
+        return null;
     }
 
     @Override

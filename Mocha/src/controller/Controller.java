@@ -11,10 +11,16 @@ import model.value.RefValue;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutionException;
+
 
 public class Controller {
     private final IRepository repository;
     private boolean displayFlag;
+    ExecutorService executor;
 
     public Controller(IRepository repository, boolean displayFlag) {
         this.repository = repository;
@@ -63,37 +69,80 @@ public class Controller {
         this.displayFlag = displayFlag;
     }
 
-    public ProgramState oneStep() throws MochaException {
-        ProgramState programState = this.repository.getProgramState();
-        IStack<Statement> exeStack = repository.getProgramState().getExeStack();
-        if (exeStack.isEmpty()) throw new MochaExecutionException("ExeStack is empty");
-        Statement currentStatement = exeStack.pop();
-        return currentStatement.execute(programState);
+    List<ProgramState> removeCompletedPrograms(List<ProgramState> programStates) {
+        return programStates.stream()
+                .filter(p -> p.isNotCompleted())
+                .collect(Collectors.toList());
+    }
+
+    public void oneStepForAllPrograms(List<ProgramState> programStates) throws MochaException, InterruptedException {
+        List<ProgramState> prgList = programStates;
+
+        prgList.forEach(prg -> {
+            try {
+                repository.logPrgStateExec(prg);
+            } catch (MochaException e) {
+                System.out.println(e.getMessage());
+            }
+        });
+
+        List<Callable<ProgramState>> callList = prgList.stream()
+                .map((ProgramState p) -> (Callable<ProgramState>) (() -> {
+                    return p.oneStep();
+                }))
+                .collect(Collectors.toList());
+
+        List<ProgramState> newProgramList = executor.invokeAll(callList).stream()
+                .map(future -> {
+                    try {
+                        return future.get();
+                    } catch (ExecutionException | InterruptedException e) {
+                        System.out.println(e.getMessage());
+                        return null;
+                    }
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
+
+        prgList.addAll(newProgramList);
+
+        prgList.forEach(prg -> {
+            try {
+                repository.logPrgStateExec(prg);
+            } catch (MochaException e) {
+                System.out.println(e.getMessage());
+            }
+        });
+
+        repository.setProgramStateList(prgList);
+    }
+
+    public void conservativeGarbageCollector(List<ProgramState> programStates) {
+        List<Integer> allAddresses = programStates.stream()
+                .flatMap(prg -> getAccessibleAddresses(prg.getSymTable().getContent().values(), prg.getHeap().getContent()).stream())
+                .distinct()
+                .collect(Collectors.toList());
+
+        programStates.forEach(prg -> {
+            prg.getHeap().setContent(safeGarbageCollector(allAddresses, prg.getHeap().getContent()));
+        });
     }
 
     public void allSteps() throws MochaException {
-        ProgramState programState = this.repository.getProgramState();
-        if (displayFlag) {
-            repository.logPrgStateExec();
-        }
-        IStack<Statement> exeStack = programState.getExeStack();
-        while (!exeStack.isEmpty()) {
-            oneStep();
-            if (displayFlag) {
-                repository.logPrgStateExec();
+        executor = Executors.newFixedThreadPool(2);
+        List<ProgramState> programStates = removeCompletedPrograms(repository.getProgramStateList());
+
+        while (!programStates.isEmpty()) {
+            try {
+                oneStepForAllPrograms(programStates);
+                conservativeGarbageCollector(programStates);
+                programStates = removeCompletedPrograms(repository.getProgramStateList());
             }
-            programState.getHeap().setContent(
-                    safeGarbageCollector(
-                            getAccessibleAddresses(
-                                    programState.getSymTable().getContent().values(),
-                                    programState.getHeap().getContent()
-                            ),
-                            programState.getHeap().getContent()
-                    )
-            );
-            if (displayFlag) {
-                repository.logPrgStateExec();
+            catch (InterruptedException e) {
+                throw new MochaExecutionException("Execution interrupted: " + e.getMessage());
             }
         }
+        executor.shutdownNow();
+        repository.setProgramStateList(programStates);
     }
 }

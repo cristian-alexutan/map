@@ -27,7 +27,7 @@ public class IfStatement implements Statement {
             boolean cond = ((BoolValue) result).getValue();
             if (cond) stack.push(thenStatement);
             else stack.push(elseStatement);
-            return state;
+            return null;
         } else {
             throw new MochaException("Condition is not a boolean.");
         }

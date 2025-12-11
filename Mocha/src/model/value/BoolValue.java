@@ -36,4 +36,9 @@ public class BoolValue implements Value {
     public String toString() {
         return this.value ? "true" : "false";
     }
+
+    @Override
+    public Value deepCopy() {
+        return new BoolValue(this.value);
+    }
 }
