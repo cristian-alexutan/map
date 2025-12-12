@@ -39,6 +39,7 @@ public class Interpreter {
         Statement ex8 = HardcodedPrograms.getStatement(7);
         Statement ex9 = HardcodedPrograms.getStatement(8);
         Statement ex10 = HardcodedPrograms.getStatement(9);
+        Statement ex11 = HardcodedPrograms.getStatement(10);
 
         Controller controller1 = new Interpreter().createController(ex1, "log1.txt");
         Controller controller2 = new Interpreter().createController(ex2, "log2.txt");
@@ -49,7 +50,8 @@ public class Interpreter {
         Controller controller7 = new Interpreter().createController(ex7, "log7.txt");
         Controller controller8 = new Interpreter().createController(ex8, "log8.txt");
         Controller controller9 = new Interpreter().createController(ex9, "log9.txt");
-            Controller controller10 = new Interpreter().createController(ex10, "log10.txt");
+        Controller controller10 = new Interpreter().createController(ex10, "log10.txt");
+        Controller controller11 = new Interpreter().createController(ex11, "log11.txt");
 
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
@@ -63,6 +65,7 @@ public class Interpreter {
         menu.addCommand(new RunExampleCommand("8", ex8.toString(), controller8));
         menu.addCommand(new RunExampleCommand("9", ex9.toString(), controller9));
         menu.addCommand(new RunExampleCommand("10", ex10.toString(), controller10));
+        menu.addCommand(new RunExampleCommand("11", ex11.toString(), controller11));
         menu.show();
     }
 }
