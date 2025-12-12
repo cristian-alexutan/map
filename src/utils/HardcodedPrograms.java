@@ -246,6 +246,24 @@ public final class HardcodedPrograms {
                         )
                 );
 
+        // int a; fork(a=10; print(a)); a = 5; print(b)
+        Statement ex11 =
+                new CompoundStatement(
+                        new DeclarationStatement("a", new IntType()),
+                        new CompoundStatement(
+                                new ForkStatement(
+                                        new CompoundStatement(
+                                                new AssignStatement("a", new ValueExpression(new IntValue(10))),
+                                                new PrintStatement(new VariableExpression("a"))
+                                        )
+                                ),
+                                new CompoundStatement(
+                                        new AssignStatement("a", new ValueExpression(new IntValue(5))),
+                                        new PrintStatement(new VariableExpression("a"))
+                                )
+                        )
+                );
+
         STATEMENTS.add(ex1);
         STATEMENTS.add(ex2);
         STATEMENTS.add(ex3);
@@ -256,6 +274,7 @@ public final class HardcodedPrograms {
         STATEMENTS.add(ex8);
         STATEMENTS.add(ex9);
         STATEMENTS.add(ex10);
+        STATEMENTS.add(ex11);
     }
 
     private HardcodedPrograms() {
