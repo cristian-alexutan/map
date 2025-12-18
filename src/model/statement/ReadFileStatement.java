@@ -9,6 +9,8 @@ import model.type.StringType;
 import model.value.IntValue;
 import model.value.StringValue;
 import model.value.Value;
+import model.type.Type;
+import model.type.IntType;
 
 import java.io.BufferedReader;
 
@@ -58,5 +60,18 @@ public class ReadFileStatement implements Statement {
     @Override
     public String toString() {
         return "readFile(" + exp + ", " + varName + ")";
+    }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type expType = exp.typeCheck(typeEnv);
+        if (!expType.equals(new StringType())) {
+            throw new MochaException("ReadFile Statement: expression must be of type String.");
+        }
+        Type varType = typeEnv.get(varName);
+        if (!varType.equals(new IntType())) {
+            throw new MochaException("ReadFile Statement: variable must be of type Int.");
+        }
+        return typeEnv;
     }
 }

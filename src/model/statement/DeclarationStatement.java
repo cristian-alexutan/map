@@ -27,4 +27,10 @@ public class DeclarationStatement implements Statement {
     public String toString() {
         return varType.toString() + " " + varName;
     }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        typeEnv.insert(varName, varType);
+        return typeEnv;
+    }
 }

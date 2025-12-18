@@ -55,4 +55,21 @@ public class WriteHeapStatement implements Statement {
     public String toString() {
         return "wH(" + varName + ", " + expression.toString() + ")";
     }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type varType = typeEnv.get(varName);
+        if (!(varType instanceof RefType)) {
+            throw new MochaException("WriteHeap Statement: variable " + varName + " isn't RefType.");
+        }
+
+        RefType refType = (RefType) varType;
+        Type exprType = expression.typeCheck(typeEnv);
+
+        if (!exprType.equals(refType.getInner())) {
+            throw new MochaException("WriteHeapStatement: type mismatch. Expected " + refType.getInner() + ", got " + exprType + ".");
+        }
+
+        return typeEnv;
+    }
 }

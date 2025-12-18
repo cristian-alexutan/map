@@ -34,4 +34,15 @@ public class AssignStatement implements Statement {
     public String toString() {
         return key + " = " + expression.toString();
     }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type varType = typeEnv.get(key);
+        Type expType = expression.typeCheck(typeEnv);
+        if (varType.equals(expType)) {
+            return typeEnv;
+        } else {
+            throw new MochaException("Assign Statement: right hand side and left hand side have different types");
+        }
+    }
 }
