@@ -2,6 +2,9 @@ package model.statement;
 
 import model.container.IStack;
 import model.programstate.ProgramState;
+import model.type.Type;
+import model.container.IDictionary;
+import exceptions.MochaException;
 
 public class CompoundStatement implements Statement {
     private final Statement first;
@@ -23,5 +26,10 @@ public class CompoundStatement implements Statement {
     @Override
     public String toString() {
         return "(" + first.toString() + "; " + second.toString() + ")";
+    }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        return second.typeCheck(first.typeCheck(typeEnv));
     }
 }

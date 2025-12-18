@@ -30,8 +30,7 @@ public class MochaDictionary<TKey, TValue> implements IDictionary<TKey, TValue> 
     }
 
     @Override
-    public TValue get(TKey key) throws MochaDictionaryException {
-        if (!map.containsKey(key)) throw new MochaDictionaryException("Key not found: " + key);
+    public TValue get(TKey key) {
         return map.get(key);
     }
 

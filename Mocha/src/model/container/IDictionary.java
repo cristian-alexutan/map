@@ -11,7 +11,7 @@ public interface IDictionary<TKey, TValue> {
 
     void update(TKey key, TValue value) throws MochaDictionaryException;
 
-    TValue get(TKey key) throws MochaDictionaryException;
+    TValue get(TKey key);
 
     boolean hasKey(TKey key);
 

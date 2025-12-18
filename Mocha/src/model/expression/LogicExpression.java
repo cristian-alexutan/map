@@ -1,6 +1,6 @@
 package model.expression;
 
-import exceptions.MochaDictionaryException;
+import exceptions.MochaTypeException;
 import exceptions.MochaException;
 import exceptions.MochaExpEvalException;
 import model.container.IDictionary;
@@ -8,6 +8,7 @@ import model.type.BoolType;
 import model.value.BoolValue;
 import model.value.Value;
 import model.container.IHeap;
+import model.type.Type;
 
 public class LogicExpression implements Expression {
     Expression left;
@@ -44,5 +45,20 @@ public class LogicExpression implements Expression {
     @Override
     public String toString() {
         return left.toString() + " " + operator + " " + right.toString();
+    }
+
+    @Override
+    public Type typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type leftType = left.typeCheck(typeEnv);
+        Type rightType = right.typeCheck(typeEnv);
+
+        if (!leftType.equals(new BoolType())) {
+            throw new MochaTypeException("Left operand is not of type bool.");
+        }
+        if (!rightType.equals(new BoolType())) {
+            throw new MochaTypeException("Right operand is not of type bool.");
+        }
+
+        return new BoolType();
     }
 }

@@ -36,4 +36,10 @@ public class ForkStatement implements Statement{
     public String toString() {
         return "fork(" + statement.toString() + ")";
     }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        statement.typeCheck(typeEnv.deepCopy());
+        return typeEnv;
+    }
 }

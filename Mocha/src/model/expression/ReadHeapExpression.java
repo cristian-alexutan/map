@@ -1,5 +1,6 @@
 package model.expression;
 
+import exceptions.MochaTypeException;
 import exceptions.MochaException;
 import model.type.Type;
 import model.type.RefType;
@@ -35,5 +36,16 @@ public class ReadHeapExpression implements Expression {
     @Override
     public String toString() {
         return "rH(" + expression.toString() + ")";
+    }
+
+    @Override
+    public Type typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type exprType = expression.typeCheck(typeEnv);
+        if (exprType instanceof RefType) {
+            RefType refType = (RefType) exprType;
+            return refType.getInner();
+        } else {
+            throw new MochaTypeException("The readHeap argument is not a Ref Type");
+        }
     }
 }

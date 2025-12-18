@@ -9,6 +9,7 @@ import model.programstate.ProgramState;
 import model.type.StringType;
 import model.value.StringValue;
 import model.value.Value;
+import model.type.Type;
 
 import java.io.BufferedReader;
 
@@ -46,5 +47,14 @@ public class CloseReadFileStatement implements Statement {
     @Override
     public String toString() {
         return "closeReadFile(" + exp + ")";
+    }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type typeExp = exp.typeCheck(typeEnv);
+        if (!typeExp.equals(new StringType())) {
+            throw new MochaException("CloseReadFile Statement: expression is not of StringType");
+        }
+        return typeEnv;
     }
 }

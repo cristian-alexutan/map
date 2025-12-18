@@ -5,6 +5,8 @@ import model.container.IList;
 import model.expression.Expression;
 import model.programstate.ProgramState;
 import model.value.Value;
+import model.container.IDictionary;
+import model.type.Type;
 
 public class PrintStatement implements Statement {
     Expression expression;
@@ -23,5 +25,11 @@ public class PrintStatement implements Statement {
     @Override
     public String toString() {
         return "print(" + expression.toString() + ")";
+    }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        expression.typeCheck(typeEnv);
+        return typeEnv;
     }
 }
