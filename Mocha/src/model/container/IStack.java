@@ -2,6 +2,9 @@ package model.container;
 
 import exceptions.MochaException;
 
+import java.util.Arrays;
+import java.util.List;
+
 public interface IStack<T> {
     void push(T val);
 
@@ -14,4 +17,6 @@ public interface IStack<T> {
     String toString();
 
     IStack<T> deepCopy();
+
+    List<T> getContent();
 }

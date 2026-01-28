@@ -3,6 +3,8 @@ package model.container;
 import exceptions.MochaException;
 import exceptions.MochaListException;
 
+import java.util.List;
+
 public interface IList<T> {
     void add(T val);
 
@@ -15,4 +17,6 @@ public interface IList<T> {
     String toString();
 
     IList<T> deepCopy();
+
+    List<T> getContent();
 }

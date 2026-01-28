@@ -121,6 +121,35 @@ public class Controller {
         return erased;
     }
 
+    public void oneStepForAllProgramsWithGC() throws MochaException, InterruptedException {
+        executor = Executors.newFixedThreadPool(2);
+
+        List<ProgramState> programStates = removeCompletedPrograms(repository.getProgramStateList());
+        if (programStates.isEmpty()) {
+            executor.shutdownNow();
+            return;
+        }
+        if(displayFlag) {
+            for (ProgramState prg : programStates) {
+                repository.logPrgStateExec(prg);
+            }
+        }
+        oneStepForAllPrograms(programStates);
+        if(displayFlag) {
+            for (ProgramState prg : programStates) {
+                repository.logPrgStateExec(prg);
+            }
+        }
+        boolean erased = conservativeGarbageCollector(programStates);
+        if(displayFlag && erased) {
+            for (ProgramState prg : programStates) {
+                repository.logPrgStateExec(prg);
+            }
+        }
+
+        executor.shutdownNow();
+    }
+
     public void allSteps() throws MochaException {
         executor = Executors.newFixedThreadPool(2);
         List<ProgramState> programStates = removeCompletedPrograms(repository.getProgramStateList());
@@ -153,5 +182,22 @@ public class Controller {
         }
         executor.shutdownNow();
         repository.setProgramStateList(programStates);
+    }
+
+    public int getProgramStatesCount() {
+        return repository.getProgramStateList().size();
+    }
+
+    public List<ProgramState> getProgramStates() {
+        return repository.getProgramStateList();
+    }
+
+    public ProgramState getProgramStateById(int id) {
+        for (ProgramState prg : removeCompletedPrograms(repository.getProgramStateList())) {
+            if (prg.getId() == id) {
+                return prg;
+            }
+        }
+        return null;
     }
 }

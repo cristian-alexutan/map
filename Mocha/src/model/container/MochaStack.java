@@ -3,6 +3,7 @@ package model.container;
 import exceptions.MochaStackException;
 
 import java.util.LinkedList;
+import java.util.List;
 
 public class MochaStack<T> implements IStack<T> {
     private LinkedList<T> list;
@@ -53,5 +54,10 @@ public class MochaStack<T> implements IStack<T> {
             newStack.push(val);
         }
         return newStack;
+    }
+
+    @Override
+    public List<T> getContent() {
+        return list;
     }
 }

@@ -3,6 +3,7 @@ package model.container;
 import exceptions.MochaListException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MochaList<T> implements IList<T> {
     ArrayList<T> list;
@@ -48,5 +49,10 @@ public class MochaList<T> implements IList<T> {
             newList.add(val);
         }
         return newList;
+    }
+
+    @Override
+    public List<T> getContent() {
+        return list;
     }
 }
