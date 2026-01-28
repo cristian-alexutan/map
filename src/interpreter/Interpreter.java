@@ -36,13 +36,13 @@ public class Interpreter {
         return new Controller(repository, true);
     }
 
-    static void main(String[] args) throws MochaException {
-        Statement statements[] = new Statement[11];
-        Controller controllers[] = new Controller[11];
+    static void main(String[] args) {
+        Statement[] statements = new Statement[10];
+        Controller[] controllers = new Controller[10];
         TextMenu menu = new TextMenu();
         menu.addCommand(new ExitCommand("0", "exit"));
 
-        for (int i = 0; i < 11; i++) {
+        for (int i = 0; i < 10; i++) {
             statements[i] = HardcodedPrograms.getStatement(i);
             try {
                 controllers[i] = new Interpreter().createController(statements[i], "log" + (i + 1) + ".txt");
