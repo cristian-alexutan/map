@@ -1,6 +1,6 @@
 package model.expression;
 
-import exceptions.MochaDictionaryException;
+import exceptions.MochaTypeException;
 import exceptions.MochaException;
 import exceptions.MochaExpEvalException;
 import model.container.IDictionary;
@@ -8,6 +8,7 @@ import model.type.IntType;
 import model.value.BoolValue;
 import model.value.Value;
 import model.container.IHeap;
+import model.type.Type;
 
 public class RelationalExpression implements Expression {
     private final Expression left;
@@ -47,5 +48,20 @@ public class RelationalExpression implements Expression {
     @Override
     public String toString() {
         return "(" + left.toString() + " " + operator.toString() + " " + right.toString() + ")";
+    }
+
+    @Override
+    public Type typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type leftType = left.typeCheck(typeEnv);
+        Type rightType = right.typeCheck(typeEnv);
+
+        if (!leftType.equals(new IntType())) {
+            throw new MochaTypeException("Left operand is not an integer.");
+        }
+        if (!rightType.equals(new IntType())) {
+            throw new MochaTypeException("Right operand is not an integer.");
+        }
+
+        return new model.type.BoolType();
     }
 }

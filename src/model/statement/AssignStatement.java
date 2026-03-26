@@ -27,11 +27,22 @@ public class AssignStatement implements Statement {
             throw new MochaException("Declared type of variable " + key + " and type of the assigned expression do not match.");
         IDictionary<String, Value> symTable = state.getSymTable();
         symTable.update(key, val);
-        return state;
+        return null;
     }
 
     @Override
     public String toString() {
         return key + " = " + expression.toString();
+    }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type varType = typeEnv.get(key);
+        Type expType = expression.typeCheck(typeEnv);
+        if (varType.equals(expType)) {
+            return typeEnv;
+        } else {
+            throw new MochaException("Assign Statement: right hand side and left hand side have different types");
+        }
     }
 }

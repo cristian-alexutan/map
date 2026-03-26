@@ -5,6 +5,7 @@ import exceptions.MochaExpEvalException;
 import model.container.IDictionary;
 import model.value.Value;
 import model.container.IHeap;
+import model.type.Type;
 
 public class VariableExpression implements Expression {
     String key;
@@ -24,5 +25,10 @@ public class VariableExpression implements Expression {
     @Override
     public String toString() {
         return key;
+    }
+
+    @Override
+    public Type typeCheck(IDictionary<String, Type> typeEnv) throws MochaDictionaryException {
+        return typeEnv.get(key);
     }
 }

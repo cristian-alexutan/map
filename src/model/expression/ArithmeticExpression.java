@@ -1,6 +1,6 @@
 package model.expression;
 
-import exceptions.MochaDictionaryException;
+import exceptions.MochaTypeException;
 import exceptions.MochaException;
 import exceptions.MochaExpEvalException;
 import model.container.IDictionary;
@@ -8,6 +8,7 @@ import model.type.IntType;
 import model.value.IntValue;
 import model.value.Value;
 import model.container.IHeap;
+import model.type.Type;
 
 public class ArithmeticExpression implements Expression {
     Expression left;
@@ -49,4 +50,18 @@ public class ArithmeticExpression implements Expression {
         return left.toString() + " " + operator + " " + right.toString();
     }
 
+    @Override
+    public Type typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type leftType = left.typeCheck(typeEnv);
+        Type rightType = right.typeCheck(typeEnv);
+
+        if(!leftType.equals(new IntType())) {
+            throw new MochaTypeException("First operand is not an integer");
+        }
+        if(!rightType.equals(new IntType())) {
+            throw new MochaTypeException("Second operand is not an integer");
+        }
+
+        return new IntType();
+    }
 }

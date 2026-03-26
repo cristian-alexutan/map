@@ -29,4 +29,9 @@ public class RefValue implements Value {
     public String toString() {
         return "ref(" + Integer.toString(address) + ", " + locationType.toString() + ")";
     }
+
+    @Override
+    public Value deepCopy() {
+        return new RefValue(address, locationType);
+    }
 }

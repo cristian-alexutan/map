@@ -34,11 +34,21 @@ public class WhileStatement implements Statement {
             exeStack.push(this);
             exeStack.push(body);
         }
-        return state;
+        return null;
     }
 
     @Override
     public String toString() {
         return "while(" + condition.toString() + ") { " + body.toString() + " }";
+    }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type condType = condition.typeCheck(typeEnv);
+        if (!condType.equals(new BoolType())) {
+            throw new MochaException("While condition is not of type bool.");
+        }
+        body.typeCheck(typeEnv.deepCopy());
+        return typeEnv;
     }
 }

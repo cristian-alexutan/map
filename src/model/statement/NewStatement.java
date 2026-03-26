@@ -44,11 +44,28 @@ public class NewStatement implements Statement{
         RefValue newRefValue = new RefValue(newAddress, refType.getInner());
         symTable.update(varName, newRefValue);
 
-        return state;
+        return null;
     }
 
     @Override
     public String toString() {
         return "new(" + varName + ", " + expression.toString() + ")";
+    }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        Type varType = typeEnv.get(varName);
+        Type expType = expression.typeCheck(typeEnv);
+
+        if (varType instanceof RefType) {
+            RefType refType = (RefType) varType;
+            if (refType.getInner().equals(expType)) {
+                return typeEnv;
+            } else {
+                throw new MochaException("New Statement: type of expression does not match inner type of reference variable " + varName + ".");
+            }
+        } else {
+            throw new MochaException("New Statement: variable " + varName + " is not of RefType.");
+        }
     }
 }

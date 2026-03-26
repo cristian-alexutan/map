@@ -8,24 +8,31 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Repository implements IRepository {
-    ProgramState programState, originalProgram;
+    List<ProgramState> programStates;
     String logFilePath;
 
     public Repository(ProgramState programState, String logFilePath) {
-        this.programState = programState;
+        this.programStates = new ArrayList<>();
+        this.programStates.add(programState);
         this.logFilePath = logFilePath;
-        this.originalProgram = programState.deepCopy();
     }
 
     @Override
-    public ProgramState getProgramState() {
-        return this.programState;
+    public List<ProgramState> getProgramStateList() {
+        return this.programStates;
     }
 
     @Override
-    public void logPrgStateExec() throws MochaException {
+    public void setProgramStateList(List<ProgramState> programStates) {
+        this.programStates = programStates;
+    }
+
+    @Override
+    public void logPrgStateExec(ProgramState programState) throws MochaException {
         try {
             PrintWriter logFile = new PrintWriter(new BufferedWriter(new FileWriter(logFilePath, true)));
             logFile.println(programState.toString());

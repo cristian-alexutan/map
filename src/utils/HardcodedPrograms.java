@@ -1,25 +1,31 @@
 package utils;
 
-import model.expression.ArithmeticExpression;
-import model.expression.ValueExpression;
-import model.expression.VariableExpression;
+import model.expression.*;
 import model.statement.*;
-import model.type.BoolType;
-import model.type.IntType;
-import model.value.BoolValue;
-import model.value.IntValue;
+import model.type.*;
+import model.value.*;
 
 import java.util.Vector;
 
-import static model.expression.ArithmeticOperator.ADD;
-import static model.expression.ArithmeticOperator.MULTIPLY;
-import static model.expression.ArithmeticOperator.SUBTRACT;
+import static model.expression.ArithmeticOperator.*;
 import static model.expression.RelationalOperator.GREATER;
 
 public final class HardcodedPrograms {
     private static final Vector<Statement> STATEMENTS = new Vector<>();
 
     static {
+//        1: (int v; (v = 2; print(v)))
+//        2: (int a; (int b; (a = 2 + 3 * 5; (b = a + 1; print(b)))))
+//        3: (bool a; (int v; (a = true; (if(a) then(v = 2) else(v = 3); print(v)))))
+//        4: (string varf; (varf = "test.in"; (openReadFile(varf); (int varc; (readFile(varf, varc); (print(varc); (readFile(varf, varc); (print(varc); closeReadFile(varf)))))))))
+//        5: (Ref(int) v; (new(v, 20); (print(rH(v)); (wH(v, 30); print(rH(v) + 5)))))
+//        6: (Ref(int) v; (new(v, 20); (Ref(Ref(int)) a; (new(a, v); (new(v, 30); print(rH(rH(a))))))))
+//        7: (int v; (v = 4; (while((v > 0)) { (print(v); v = v - 1) }; print(v))))
+//        8: (Ref(int) v; (new(v, 20); (new(v, 30); print(rH(v)))))
+//        9: (int v; (Ref(int) a; (v = 10; (new(a, 22); (fork((wH(a, 30); (v = 32; (print(v); print(rH(a)))))); (print(v); print(rH(a))))))))
+//        10: (Ref(int) a; (new(a, 20); fork((print(rH(a)); new(a, 30)))))
+//        11: (int a; (fork((a = 10; print(a))); (a = 5; print(a))))
+
         Statement ex1 =
                 new CompoundStatement(
                         new DeclarationStatement("v", new IntType()),
@@ -68,7 +74,7 @@ public final class HardcodedPrograms {
                         new CompoundStatement(
                                 new DeclarationStatement("v", new IntType()),
                                 new CompoundStatement(
-                                        new AssignStatement("a", new ValueExpression(new BoolValue(true))),
+                                        new AssignStatement("a", new ValueExpression(new IntValue(2))),
                                         new CompoundStatement(
                                                 new IfStatement(
                                                         new VariableExpression("a"),
@@ -83,10 +89,10 @@ public final class HardcodedPrograms {
 
         Statement ex4 =
                 new CompoundStatement(
-                        new DeclarationStatement("varf", new model.type.StringType()),
+                        new DeclarationStatement("varf", new StringType()),
                         new CompoundStatement(
                                 new AssignStatement("varf",
-                                        new ValueExpression(new model.value.StringValue("test.in"))
+                                        new ValueExpression(new StringValue("test.in"))
                                 ),
                                 new CompoundStatement(
                                         new OpenReadFileStatement(new VariableExpression("varf")),
@@ -112,18 +118,18 @@ public final class HardcodedPrograms {
 
         Statement ex5 =
                 new CompoundStatement(
-                        new DeclarationStatement("v", new model.type.RefType(new IntType())),
+                        new DeclarationStatement("v", new RefType(new IntType())),
                         new CompoundStatement(
                                 new NewStatement("v", new ValueExpression(new IntValue(20))),
                                 new CompoundStatement(
                                         new PrintStatement(
-                                                new model.expression.ReadHeapExpression(new VariableExpression("v"))
+                                                new ReadHeapExpression(new VariableExpression("v"))
                                         ),
                                         new CompoundStatement(
                                                 new WriteHeapStatement("v", new ValueExpression(new IntValue(30))),
                                                 new PrintStatement(
                                                         new ArithmeticExpression(
-                                                                new model.expression.ReadHeapExpression(new VariableExpression("v")),
+                                                                new ReadHeapExpression(new VariableExpression("v")),
                                                                 new ValueExpression(new IntValue(5)),
                                                                 ADD
                                                         )
@@ -135,18 +141,18 @@ public final class HardcodedPrograms {
 
         Statement ex6 =
                 new CompoundStatement(
-                        new DeclarationStatement("v", new model.type.RefType(new IntType())),
+                        new DeclarationStatement("v", new RefType(new IntType())),
                         new CompoundStatement(
                                 new NewStatement("v", new ValueExpression(new IntValue(20))),
                                 new CompoundStatement(
-                                        new DeclarationStatement("a", new model.type.RefType(new model.type.RefType(new IntType()))),
+                                        new DeclarationStatement("a", new RefType(new RefType(new IntType()))),
                                         new CompoundStatement(
                                                 new NewStatement("a", new VariableExpression("v")),
                                                 new CompoundStatement(
                                                         new NewStatement("v", new ValueExpression(new IntValue(30))),
                                                         new PrintStatement(
-                                                                new model.expression.ReadHeapExpression(
-                                                                        new model.expression.ReadHeapExpression(
+                                                                new ReadHeapExpression(
+                                                                        new ReadHeapExpression(
                                                                                 new VariableExpression("a")
                                                                         )
                                                                 )
@@ -164,7 +170,7 @@ public final class HardcodedPrograms {
                                 new AssignStatement("v", new ValueExpression(new IntValue(4))),
                                 new CompoundStatement(
                                         new WhileStatement(
-                                                new model.expression.RelationalExpression(
+                                                new RelationalExpression(
                                                         new VariableExpression("v"),
                                                         new ValueExpression(new IntValue(0)),
                                                         GREATER
@@ -188,13 +194,60 @@ public final class HardcodedPrograms {
 
         Statement ex8 =
                 new CompoundStatement(
-                        new DeclarationStatement("v", new model.type.RefType(new IntType())),
+                        new DeclarationStatement("v", new RefType(new IntType())),
                         new CompoundStatement(
                                 new NewStatement("v", new ValueExpression(new IntValue(20))),
                                 new CompoundStatement(
                                         new NewStatement("v", new ValueExpression(new IntValue(30))),
                                         new PrintStatement(
-                                                new model.expression.ReadHeapExpression(new VariableExpression("v"))
+                                                new ReadHeapExpression(new VariableExpression("v"))
+                                        )
+                                )
+                        )
+                );
+
+        Statement ex9 =
+                new CompoundStatement(
+                        new DeclarationStatement("v", new IntType()),
+                        new CompoundStatement(
+                                new DeclarationStatement("a", new RefType(new IntType())),
+                                new CompoundStatement(
+                                        new AssignStatement("v", new ValueExpression(new IntValue(10))),
+                                        new CompoundStatement(
+                                                new NewStatement("a", new ValueExpression(new IntValue(22))),
+                                                new CompoundStatement(
+                                                        new ForkStatement(
+                                                                new CompoundStatement(
+                                                                        new WriteHeapStatement("a", new ValueExpression(new IntValue(20))),
+                                                                        new CompoundStatement(
+                                                                                new AssignStatement("v", new ValueExpression(new IntValue(32))),
+                                                                                new CompoundStatement(
+                                                                                        new PrintStatement(new VariableExpression("v")),
+                                                                                        new PrintStatement(new ReadHeapExpression(new VariableExpression("a")))
+                                                                                )
+                                                                        )
+                                                                )
+                                                        ),
+                                                        new CompoundStatement(
+                                                                new PrintStatement(new VariableExpression("v")),
+                                                                new PrintStatement(new ReadHeapExpression(new VariableExpression("a")))
+                                                        )
+                                                )
+                                        )
+                                )
+                        )
+                );
+
+        // ref(int) a; new(a, 20); fork(print(rH(a)); new(a, 30));
+        Statement ex10 =
+                new CompoundStatement(
+                        new DeclarationStatement("a", new RefType(new IntType())),
+                        new CompoundStatement(
+                                new NewStatement("a", new ValueExpression(new IntValue(20))),
+                                new ForkStatement(
+                                        new CompoundStatement(
+                                                new PrintStatement(new ReadHeapExpression(new VariableExpression("a"))),
+                                                new NewStatement("a", new ValueExpression(new IntValue(30)))
                                         )
                                 )
                         )
@@ -208,6 +261,8 @@ public final class HardcodedPrograms {
         STATEMENTS.add(ex6);
         STATEMENTS.add(ex7);
         STATEMENTS.add(ex8);
+        STATEMENTS.add(ex9);
+        STATEMENTS.add(ex10);
     }
 
     private HardcodedPrograms() {

@@ -20,11 +20,17 @@ public class DeclarationStatement implements Statement {
         IDictionary<String, Value> symTable = state.getSymTable();
         if (symTable.hasKey(varName)) throw new MochaException("Variable " + varName + " is already declared.");
         symTable.insert(varName, varType.defaultValue());
-        return state;
+        return null;
     }
 
     @Override
     public String toString() {
         return varType.toString() + " " + varName;
+    }
+
+    @Override
+    public IDictionary<String, Type> typeCheck(IDictionary<String, Type> typeEnv) throws MochaException {
+        typeEnv.insert(varName, varType);
+        return typeEnv;
     }
 }
